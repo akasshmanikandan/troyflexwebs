@@ -415,9 +415,9 @@ document.addEventListener('DOMContentLoaded', () => {
     pricingCheckbox.addEventListener('change', () => {
       if (pricingCheckbox.checked) {
         // Switch to Monthly Maintenance Retainer Tiers
-        priceValStarter.innerText = '2,000';
-        priceValGrowth.innerText = '5,000';
-        priceValElite.innerText = '8,000';
+        priceValStarter.innerText = '1,000';
+        priceValGrowth.innerText = '2,000';
+        priceValElite.innerText = '3,000';
         
         periodStarter.innerText = '/month';
         periodGrowth.innerText = '/month';
@@ -454,15 +454,15 @@ document.addEventListener('DOMContentLoaded', () => {
       
       // Formatting to Indian Rupees String
       let formattedVal = '₹' + val.toLocaleString('en-IN');
-      if (val >= 300000) {
-        formattedVal = '₹3,00,000+';
+      if (val >= 20000) {
+        formattedVal = '₹20,000+';
       }
       budgetDisplay.innerText = formattedVal;
 
       // Auto-select correct plan in dropdown based on Budget Thresholds
-      if (val < 65000) {
+      if (val < 4000) {
         formInterestSelect.value = 'Starter Plan';
-      } else if (val >= 65000 && val < 150000) {
+      } else if (val >= 4000 && val < 7000) {
         formInterestSelect.value = 'Growth Plan';
       } else {
         formInterestSelect.value = 'Elite Plan';
@@ -473,14 +473,14 @@ document.addEventListener('DOMContentLoaded', () => {
     formInterestSelect.addEventListener('change', (e) => {
       const val = e.target.value;
       if (val === 'Starter Plan') {
-        budgetRange.value = 45000;
-        budgetDisplay.innerText = '₹45,000';
+        budgetRange.value = 2000;
+        budgetDisplay.innerText = '₹2,000';
       } else if (val === 'Growth Plan') {
-        budgetRange.value = 95000;
-        budgetDisplay.innerText = '₹95,000';
+        budgetRange.value = 5000;
+        budgetDisplay.innerText = '₹5,000';
       } else if (val === 'Elite Plan') {
-        budgetRange.value = 180000;
-        budgetDisplay.innerText = '₹1,80,000';
+        budgetRange.value = 8000;
+        budgetDisplay.innerText = '₹8,000';
       }
     });
   }
@@ -540,11 +540,11 @@ document.addEventListener('DOMContentLoaded', () => {
     `,
     mership: `
       <span class="modal-subtitle">Custom Web App & Routing Platform</span>
-      <h3>Mership Log</h3>
+      <h3>Mercury Shipping & Logistics Services</h3>
       <div class="modal-content-grid">
         <div class="modal-left">
           <p class="modal-text">
-            Mership is a premium shipping and freight tracking system designed to streamline ship coordinates matching and cargo inventory. The client faced massive SMTP failures from legacy mail protocols on Vercel nodes.
+            Mercury Shipping is a premium shipping and freight tracking system designed to streamline ship coordinates matching and cargo inventory. The client faced massive SMTP failures from legacy mail protocols on Vercel nodes.
           </p>
           <p class="modal-text">
             <strong>Key Interventions:</strong> We migrated the entire notification database to a Resend SDK architecture in Next.js, created automated custom email styling banners, resolved local DNS record metadata errors, and built a sleek dark dashboard using CSS grids showing ship positions.
@@ -556,7 +556,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <div class="modal-right">
           <div class="meta-item">
             <h5>CLIENT LOCATION</h5>
-            <p>Chennai Office, George Town</p>
+            <p>No. 269/1 JSJ Complex, B1, 2nd Fl, Thambu Chetty St, Chennai 600 001</p>
           </div>
           <div class="meta-item">
             <h5>TECH STACK</h5>
