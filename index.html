@@ -1,0 +1,1055 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Troyflex | Premium Website Design, Development & Optimization in Chennai</title>
+  <meta name="description"
+    content="We build high-performance, custom-designed websites that generate leads, build trust, and load in under a second. Elite web agency built in Chennai, working everywhere.">
+  <meta name="keywords"
+    content="web design Chennai, web development Chennai, Next.js developer, SEO optimization, high-speed websites, conversion rate optimization, Troyflex">
+
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://troyflex.com/">
+  <meta property="og:title" content="Troyflex | Premium Website Design & Development">
+  <meta property="og:description"
+    content="Custom-designed websites built for speed, SEO, and conversions. Sub-second load times guaranteed.">
+  <meta property="og:image" content="https://troyflex.com/assets/og-image.jpg">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <!-- Dynamic Scroll Progress Indicator -->
+  <div id="scroll-progress" class="scroll-progress-bar"></div>
+
+  <!-- Interactive Canvas Background for Glowing Space Dust -->
+  <canvas id="bg-canvas"></canvas>
+
+  <!-- Navigation Bar -->
+  <header class="navbar" id="main-nav">
+    <div class="nav-container">
+      <a href="#" class="logo-link" id="logo-trigger">
+        <div class="logo-icon-wrapper">
+          <svg class="logo-svg" width="32" height="32" viewBox="0 0 100 100" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="100" height="100" rx="30" fill="#4361ee" />
+            <rect x="33" y="34" width="34" height="6.5" rx="3.25" fill="white" />
+            <rect x="46.75" y="40.5" width="6.5" height="17" rx="3.25" fill="white" />
+            <path d="M42.25 61.5L50 69.25L57.75 61.5" stroke="white" stroke-width="6.5" stroke-linecap="round"
+              stroke-linejoin="round" fill="none" />
+          </svg>
+        </div>
+        <span class="logo-text">Troyflex<span class="dot">.</span></span>
+      </a>
+
+      <!-- Desktop Nav Menu -->
+      <nav class="nav-menu" id="nav-menu-desktop">
+        <a href="#services" class="nav-item">Services</a>
+        <a href="#process" class="nav-item">Process</a>
+        <a href="#work" class="nav-item">Work</a>
+        <a href="#pricing" class="nav-item">Pricing</a>
+        <a href="#contact" class="nav-item">Contact</a>
+      </nav>
+
+      <!-- CTA Buttons -->
+      <div class="nav-actions">
+        <a href="https://calendly.com" target="_blank" rel="noopener" class="btn-text-link hide-mobile"
+          id="nav-schedule-call">
+          <span class="schedule-dot"></span> Schedule a proposal
+        </a>
+        <a href="#contact" class="btn btn-primary" id="nav-cta-btn">Start project</a>
+
+        <!-- Mobile Menu Toggle Button -->
+        <button class="menu-toggle" id="menu-toggle-btn" aria-label="Toggle Navigation Menu">
+          <span class="bar bar-top"></span>
+          <span class="bar bar-mid"></span>
+          <span class="bar bar-bot"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Mobile Navigation Overlay -->
+  <div class="mobile-nav-overlay" id="mobile-nav-overlay">
+    <nav class="mobile-nav-menu">
+      <a href="#services" class="mobile-nav-item">Services</a>
+      <a href="#process" class="mobile-nav-item">Process</a>
+      <a href="#work" class="mobile-nav-item">Work</a>
+      <a href="#pricing" class="mobile-nav-item">Pricing</a>
+      <a href="#contact" class="mobile-nav-item">Contact</a>
+      <div class="mobile-nav-divider"></div>
+      <a href="https://calendly.com" target="_blank" rel="noopener" class="mobile-nav-schedule-call">
+        <span class="schedule-dot"></span> Schedule a proposal
+      </a>
+    </nav>
+  </div>
+
+  <!-- Hero Section -->
+  <section class="hero-section" id="hero">
+    <div class="hero-grid container">
+      <!-- Hero Left: Core Messaging -->
+      <div class="hero-content reveal-fade">
+        <div class="badge-tag">
+          <span class="badge-spark"></span>
+          Website design & dev
+        </div>
+        <h1 class="hero-title">
+          Your website, <br class="hide-mobile">built <span class="text-glow">right.</span><br>
+          Kept <span class="gradient-text-teal text-glow-teal">alive.</span>
+        </h1>
+        <p class="hero-subtext">
+          We engineer elite digital experiences that generate high-quality leads, build unbreakable trust, and load in
+          under a second. High speed, fully managed.
+        </p>
+        <div class="hero-cta-group">
+          <a href="#contact" class="btn btn-primary btn-large" id="hero-primary-cta">Start project</a>
+          <a href="#work" class="btn btn-secondary btn-large" id="hero-secondary-cta">
+            View work
+            <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3.75 9H14.25" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M9.75 4.5L14.25 9L9.75 13.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </a>
+        </div>
+
+        <!-- Clients Pile / Proof -->
+        <div class="hero-social-proof">
+          <div class="avatar-group">
+            <div class="avatar avatar-1"></div>
+            <div class="avatar avatar-2"></div>
+            <div class="avatar avatar-3"></div>
+            <div class="avatar avatar-4"></div>
+          </div>
+          <span class="proof-text">Trusted by 20+ forward-thinking founders globally</span>
+        </div>
+      </div>
+
+      <!-- Hero Right: Quick Stats & Floating Value Props -->
+      <div class="hero-visual reveal-fade-right">
+        <div class="hero-stats-panel">
+          <div class="stat-mini-card">
+            <span class="stat-number green-text">20+</span>
+            <span class="stat-label">Projects Delivered</span>
+          </div>
+          <div class="stat-mini-card">
+            <span class="stat-number teal-text">100%</span>
+            <span class="stat-label">Client Retention</span>
+          </div>
+        </div>
+
+        <!-- Featured Value Proposition Cards -->
+        <div class="value-prop-stack">
+          <!-- Card 1 -->
+          <div class="floating-value-card green-card">
+            <div class="val-card-icon-wrapper green-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M2 17L12 22L22 17" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+                <path d="M2 12L12 17L22 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="val-card-info">
+              <h3>Build and launch</h3>
+              <p>Custom designs built for blazing speed, SEO dominance, and high conversions.</p>
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="floating-value-card purple-card">
+            <div class="val-card-icon-wrapper purple-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path
+                  d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+                  stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                  stroke-linejoin="round" />
+              </svg>
+            </div>
+            <div class="val-card-info">
+              <h3>24/7 maintenance</h3>
+              <p>Sub-hour request turnarounds, bulletproof security audits, and weekly performance reports.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infinite Running Marquee -->
+  <section class="marquee-section">
+    <div class="marquee-wrapper">
+      <div class="marquee-track">
+        <span class="marquee-item">🚀 RAPID DEVELOPMENT</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">⚡ NEXT.JS ENGINE</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">✨ STRATEGY & DESIGN</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">🎯 CONVERSION DRIVEN</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">📊 ADVANCED ANALYTICS</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">💎 PREMIUM EXPERIENCE</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">🛠️ 24/7 MAINTENANCE</span>
+        <span class="marquee-item">•</span>
+
+        <!-- Duplicate for Infinite Loop -->
+        <span class="marquee-item">🚀 RAPID DEVELOPMENT</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">⚡ NEXT.JS ENGINE</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">✨ STRATEGY & DESIGN</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">🎯 CONVERSION DRIVEN</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">📊 ADVANCED ANALYTICS</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">💎 PREMIUM EXPERIENCE</span>
+        <span class="marquee-item">•</span>
+        <span class="marquee-item">🛠️ 24/7 MAINTENANCE</span>
+        <span class="marquee-item">•</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Services Grid Section ("Six ways we make your website work harder") -->
+  <section class="services-section container" id="services">
+    <div class="section-header reveal-fade">
+      <div class="section-tag">Value Engine</div>
+      <h2 class="section-title">Six ways we make your <br class="hide-mobile">website work harder</h2>
+    </div>
+
+    <!-- 2x3 Services Grid -->
+    <div class="services-grid">
+
+      <!-- Card 1 -->
+      <div class="service-card reveal-fade" id="service-card-1">
+        <div class="service-icon-bg green-glow">
+          <svg class="service-icon text-green" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 20H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path
+              d="M16.5 3.5C16.8978 3.10217 17.4374 2.87868 18 2.87868C18.2786 2.87868 18.5546 2.93355 18.8122 3.04015C19.0698 3.14676 19.3039 3.30301 19.5 3.5C19.6961 3.69699 19.8523 3.93113 19.9589 4.18873C20.0655 4.44633 20.1204 4.72228 20.1204 5C20.1204 5.27772 20.0655 5.55367 19.9589 5.81127C19.8523 6.06887 19.6961 6.30301 19.5 6.5L7 19L3 20L4 16L16.5 3.5Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="service-card-title">Website design & dev</h3>
+        <p class="service-card-text">Custom engineered responsive websites built with bleeding-edge technology like
+          Next.js, tailored to capture leads and load instantly.</p>
+        <a href="#contact" class="service-learn-more text-green">Learn more <span class="arrow">→</span></a>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="service-card reveal-fade" id="service-card-2">
+        <div class="service-icon-bg teal-glow">
+          <svg class="service-icon text-teal" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M22 12H18L15 21L9 3L6 12H2" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="service-card-title">SEO & Content</h3>
+        <p class="service-card-text">Laser-focused keyword strategies and optimized architecture designed to rank your
+          company on top of Google for buyers, not just traffic.</p>
+        <a href="#contact" class="service-learn-more text-teal">Learn more <span class="arrow">→</span></a>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="service-card reveal-fade" id="service-card-3">
+        <div class="service-icon-bg orange-glow">
+          <svg class="service-icon text-orange" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 6V12L16 14" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="service-card-title">Ongoing maintenance</h3>
+        <p class="service-card-text">Absolute peace of mind. Daily encrypted offsite backups, threat shielding,
+          real-time up-time tracking, and unlimited content updates.</p>
+        <a href="#contact" class="service-learn-more text-orange">Learn more <span class="arrow">→</span></a>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="service-card reveal-fade" id="service-card-4">
+        <div class="service-icon-bg pink-glow">
+          <svg class="service-icon text-pink" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M18 13V19C18 19.5304 17.7893 20.0391 17.4142 20.4142C17.0391 20.7893 16.5304 21 16 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V8C3 7.46957 3.21071 6.96086 3.58579 6.58579C3.96086 6.21071 4.46957 6 5 6H11"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M15 3H21V9" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+            <path d="M10 14L21 3" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="service-card-title">Conversion optimization</h3>
+        <p class="service-card-text">A/B experiments, advanced heat-map analysis, and visual restructuring to
+          systematically guide your website visitors into signed clients.</p>
+        <a href="#contact" class="service-learn-more text-pink">Learn more <span class="arrow">→</span></a>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="service-card reveal-fade" id="service-card-5">
+        <div class="service-icon-bg purple-glow">
+          <svg class="service-icon text-purple" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 16V12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M12 8H12.01" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="service-card-title">Speed Optimization</h3>
+        <p class="service-card-text">Guaranteed sub-second visual rendering speeds. We optimize image weight, lazy-load
+          systems, minify core structures, and deploy on high-speed CDNs.</p>
+        <a href="#contact" class="service-learn-more text-purple">Learn more <span class="arrow">→</span></a>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="service-card reveal-fade" id="service-card-6">
+        <div class="service-icon-bg yellow-glow">
+          <svg class="service-icon text-yellow" width="24" height="24" viewBox="0 0 24 24" fill="none"
+            xmlns="http://www.w3.org/2000/svg">
+            <path
+              d="M21 16V8C21 6.89543 20.1046 6 19 6H5C3.89543 6 3 6.89543 3 8V16C3 17.1046 3.89543 18 5 18H19C20.1046 18 21 17.1046 21 16Z"
+              stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M7 10H10" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            <path d="M7 14H14" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </div>
+        <h3 class="service-card-title">Custom web applications</h3>
+        <p class="service-card-text">Tailored client portals, automation hooks, and custom API pipelines built to
+          supercharge your backend operations and save hundreds of manual hours.</p>
+        <a href="#contact" class="service-learn-more text-yellow">Learn more <span class="arrow">→</span></a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Process Timeline Section ("From idea to live site in four clean steps") -->
+  <section class="process-section" id="process">
+    <div class="container">
+      <div class="section-header text-center reveal-fade">
+        <div class="section-tag">How we build</div>
+        <h2 class="section-title text-glow">From idea to live site in four clean steps</h2>
+      </div>
+
+      <div class="process-interactive-wrapper">
+        <!-- Process Left: Circular Timeline Indicators -->
+        <div class="process-steps-list">
+          <!-- Step 1 -->
+          <div class="process-step-item active-step" data-step="1">
+            <div class="step-badge green-circle">1</div>
+            <div class="step-details">
+              <h3>Discover</h3>
+              <p>We dig deep into your product, competitive landscape, and customer base to formulate a highly targeted
+                structural layout strategy.</p>
+            </div>
+          </div>
+
+          <!-- Step 2 -->
+          <div class="process-step-item" data-step="2">
+            <div class="step-badge teal-circle">2</div>
+            <div class="step-details">
+              <h3>Design</h3>
+              <p>We craft high-fidelity, interactive desktop and mobile prototypes to map your specific visual system
+                and customer pathways.</p>
+            </div>
+          </div>
+
+          <!-- Step 3 -->
+          <div class="process-step-item" data-step="3">
+            <div class="step-badge orange-circle">3</div>
+            <div class="step-details">
+              <h3>Build</h3>
+              <p>We write clean, optimized Next.js or raw responsive code with flawless CSS structures, keeping visual
+                assets perfectly weighted.</p>
+            </div>
+          </div>
+
+          <!-- Step 4 -->
+          <div class="process-step-item" data-step="4">
+            <div class="step-badge purple-circle">4</div>
+            <div class="step-details">
+              <h3>Launch & Maintain</h3>
+              <p>After multi-device verification, we launch on high-speed servers, set up live SEO analytics, and
+                monitor performance 24/7.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Process Right: Interactive Dashboard Screen Mockup -->
+        <div class="process-visual-panel reveal-fade-right">
+          <div class="mockup-frame">
+            <div class="mockup-header">
+              <div class="mockup-dots">
+                <span class="dot-red"></span>
+                <span class="dot-yellow"></span>
+                <span class="dot-green"></span>
+              </div>
+              <div class="mockup-address">troyflex.com/project-dashboard</div>
+            </div>
+
+            <div class="mockup-body" id="process-mockup-body">
+              <!-- Content changes dynamically via JS based on selected step -->
+              <div class="mockup-step-content" id="mockup-step-1">
+                <div class="mockup-inner-header">
+                  <h4>Discover & Strategy Phase</h4>
+                  <span class="mockup-status-badge green-bg">In Analysis</span>
+                </div>
+                <div class="mockup-chart-dummy">
+                  <div class="chart-bar" style="height: 40%"></div>
+                  <div class="chart-bar" style="height: 65%"></div>
+                  <div class="chart-bar" style="height: 90%"></div>
+                  <div class="chart-bar" style="height: 55%"></div>
+                </div>
+                <div class="mockup-metrics">
+                  <div class="m-item"><span>Competitors Scraped</span><strong>14 Brands</strong></div>
+                  <div class="m-item"><span>Primary Keywords mapped</span><strong>32 High Intent</strong></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Section ("Projects that delivered results") -->
+  <section class="portfolio-section container" id="work">
+    <div class="section-header reveal-fade">
+      <div class="section-tag">Case Studies</div>
+      <h2 class="section-title">Projects that delivered results</h2>
+
+      <!-- Portfolio Filter Buttons -->
+      <div class="portfolio-filters">
+        <button class="filter-btn active-filter" data-category="all">All Projects</button>
+        <button class="filter-btn" data-category="design">Web Design</button>
+        <button class="filter-btn" data-category="dev">Custom App</button>
+        <button class="filter-btn" data-category="seo">SEO Focus</button>
+      </div>
+    </div>
+
+    <!-- Portfolio Cards Grid -->
+    <div class="projects-grid">
+
+      <!-- Project 1 -->
+      <div class="project-card reveal-fade" data-category="design seo" id="project-1">
+        <div class="project-image-wrapper border-blue">
+          <div class="project-preview-mockup">
+            <div class="mockup-nav">
+              <span class="brand-sub">The Logistics Hub</span>
+            </div>
+            <div class="mockup-hero">
+              <div class="headline-bars">
+                <div class="bar-long blue-bg"></div>
+                <div class="bar-short blue-bg"></div>
+              </div>
+              <div class="mockup-image-box blue-bg"></div>
+            </div>
+          </div>
+          <div class="project-overlay">
+            <button class="btn btn-secondary open-project-modal" data-project="logistics">Deep Dive Details</button>
+          </div>
+        </div>
+        <div class="project-info">
+          <span class="project-tag-mini text-blue">Web Design & SEO</span>
+          <h3 class="project-name">The Logistics Hub</h3>
+          <p class="project-description">A complete landing page build optimized for multi-channel shipping, boosting
+            inbound conversions by 240%.</p>
+        </div>
+      </div>
+
+      <!-- Project 2 -->
+      <div class="project-card reveal-fade" data-category="dev design" id="project-2">
+        <div class="project-image-wrapper border-green">
+          <div class="project-preview-mockup">
+            <div class="mockup-nav">
+              <span class="brand-sub text-green">Mership Log</span>
+            </div>
+            <div class="mockup-hero">
+              <div class="headline-bars">
+                <div class="bar-long green-bg"></div>
+                <div class="bar-short green-bg"></div>
+              </div>
+              <div class="mockup-image-box green-bg"></div>
+            </div>
+          </div>
+          <div class="project-overlay">
+            <button class="btn btn-secondary open-project-modal" data-project="mership">Deep Dive Details</button>
+          </div>
+        </div>
+        <div class="project-info">
+          <span class="project-tag-mini text-green">Custom App & Platform</span>
+          <h3 class="project-name">Mership Log</h3>
+          <p class="project-description">Premium marine routing system with automated Gmail/Resend workflows and instant
+            pricing calculators.</p>
+        </div>
+      </div>
+
+      <!-- Project 3 -->
+      <div class="project-card reveal-fade" data-category="dev seo" id="project-3">
+        <div class="project-image-wrapper border-pink">
+          <div class="project-preview-mockup">
+            <div class="mockup-nav">
+              <span class="brand-sub text-pink">Chennai Dental</span>
+            </div>
+            <div class="mockup-hero">
+              <div class="headline-bars">
+                <div class="bar-long pink-bg"></div>
+                <div class="bar-short pink-bg"></div>
+              </div>
+              <div class="mockup-image-box pink-bg"></div>
+            </div>
+          </div>
+          <div class="project-overlay">
+            <button class="btn btn-secondary open-project-modal" data-project="dental">Deep Dive Details</button>
+          </div>
+        </div>
+        <div class="project-info">
+          <span class="project-tag-mini text-pink">App Dev & Speed</span>
+          <h3 class="project-name">Chennai Dental Portal</h3>
+          <p class="project-description">A high-speed interactive patient portal that minimized booking latency and
+            scored 100 on Google PageSpeed.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="portfolio-footer text-center reveal-fade">
+      <button class="btn btn-outline" id="load-more-projects-btn">View all projects</button>
+    </div>
+  </section>
+
+  <!-- Chennai Pride & Agency Attributes Section -->
+  <section class="about-section" id="about">
+    <div class="container grid-2">
+      <!-- Left side: Value Text -->
+      <div class="about-text-content reveal-fade">
+        <div class="section-tag">Chennai to the World</div>
+        <h2 class="section-title text-glow">Built in Chennai.<br>Working everywhere.</h2>
+        <p class="about-paragraph">
+          Based in the bustling tech corridor of Chennai, we serve forward-thinking brands globally. We are not a
+          bloated agency with endless account managers and visual fluff. We are elite, agile product builders who
+          combine international standards with rapid local execution.
+        </p>
+
+        <!-- Live Stat Ticker Grid -->
+        <div class="about-stats-grid">
+          <div class="stat-ticker-box">
+            <span class="stat-big-val counter-trigger" data-target="20">0</span><span class="stat-plus">+</span>
+            <p>Global Projects</p>
+          </div>
+          <div class="stat-ticker-box">
+            <span class="stat-big-val counter-trigger" data-target="100">0</span><span class="stat-plus">%</span>
+            <p>Retention</p>
+          </div>
+          <div class="stat-ticker-box">
+            <span class="stat-big-val counter-trigger" data-target="24">0</span><span class="stat-plus">/7</span>
+            <p>Active Support</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Custom Agency Features List -->
+      <div class="about-bullet-list reveal-fade-right">
+        <!-- Bullet 1 -->
+        <div class="agency-bullet-item purple-border-hover">
+          <div class="bullet-color-box purple-bg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="bullet-info">
+            <h4>No agency fluff</h4>
+            <p>You speak directly with the designers and developers building your code. Zero miscommunication.</p>
+          </div>
+        </div>
+
+        <!-- Bullet 2 -->
+        <div class="agency-bullet-item green-border-hover">
+          <div class="bullet-color-box green-bg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="bullet-info">
+            <h4>Always direct support</h4>
+            <p>Submit a request and it's resolved. We prioritize immediate, sub-hour action items for critical bugs.</p>
+          </div>
+        </div>
+
+        <!-- Bullet 3 -->
+        <div class="agency-bullet-item orange-border-hover">
+          <div class="bullet-color-box orange-bg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="bullet-info">
+            <h4>Transparent pricing</h4>
+            <p>Upfront fixed project pricing and predictable, month-to-month maintenance options. No surprise bills.</p>
+          </div>
+        </div>
+
+        <!-- Bullet 4 -->
+        <div class="agency-bullet-item pink-border-hover">
+          <div class="bullet-color-box pink-bg">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+          </div>
+          <div class="bullet-info">
+            <h4>Contracts are optional</h4>
+            <p>Cancel your monthly management plan at any time. We keep clients by delivering results, not handcuffs.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Testimonials Section ("Clients don't just come back — they send their friends") -->
+  <section class="testimonials-section container">
+    <div class="section-header text-center reveal-fade">
+      <div class="section-tag">Endorsements</div>
+      <h2 class="section-title text-glow">Clients don't just come back —<br>they send their friends</h2>
+    </div>
+
+    <!-- Testimonials Card Container -->
+    <div class="testimonials-grid">
+      <!-- Testimonial 1 -->
+      <div class="testimonial-card reveal-fade">
+        <div class="star-rating">
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+        </div>
+        <p class="testimonial-quote">
+          "Troyflex built a custom application for our fleet logistics that completely revolutionized our routing.
+          Inbound conversions went up by 240%, and the website literally loads in the blink of an eye. Their ongoing
+          maintenance plan has been stellar."
+        </p>
+        <div class="testimonial-user">
+          <div class="user-avatar user-av-1">KM</div>
+          <div class="user-details">
+            <strong class="user-name">Karthik Murugan</strong>
+            <span class="user-role">Founder, Logistics Hub</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Testimonial 2 -->
+      <div class="testimonial-card reveal-fade">
+        <div class="star-rating">
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+          <span class="star-icon">★</span>
+        </div>
+        <p class="testimonial-quote">
+          "We needed a highly secure, lightning-fast client booking interface for our Chennai healthcare locations. The
+          Troyflex team designed and delivered a React-powered workspace that hit a solid 100 on PageSpeed. Dynamic,
+          premium, and zero agency fluff!"
+        </p>
+        <div class="testimonial-user">
+          <div class="user-avatar user-av-2">AN</div>
+          <div class="user-details">
+            <strong class="user-name">Dr. Aravind Nathan</strong>
+            <span class="user-role">Director, Chennai Dental Group</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing Grid Section -->
+  <section class="pricing-section container" id="pricing">
+    <div class="section-header text-center reveal-fade">
+      <div class="section-tag">Investment</div>
+      <h2 class="section-title text-glow">Transparent pricing. No surprises.</h2>
+
+      <!-- Billing Model Toggle (Monthly Retainer vs One-time Setup) -->
+      <div class="pricing-toggle-wrapper">
+        <span class="pricing-toggle-label active-label" id="label-onetime">Project Development</span>
+        <label class="pricing-switch">
+          <input type="checkbox" id="pricing-checkbox-toggle">
+          <span class="pricing-slider"></span>
+        </label>
+        <span class="pricing-toggle-label" id="label-monthly">Monthly Maintenance</span>
+      </div>
+    </div>
+
+    <!-- 3 pricing tiers -->
+    <div class="pricing-grid">
+      <!-- Tier 1: Starter -->
+      <div class="pricing-card reveal-fade" id="pricing-tier-starter">
+        <div class="card-glow-element"></div>
+        <div class="pricing-card-header">
+          <span class="tier-badge">Launchpack</span>
+          <h3 class="tier-name">Starter</h3>
+          <div class="tier-price-wrapper">
+            <span class="currency">₹</span>
+            <span class="price-val" id="price-starter">3,000</span>
+            <span class="price-period" id="period-starter">/project</span>
+          </div>
+          <p class="tier-desc">Perfect for high-growth startups requiring a premium, fast single-page launch site.</p>
+        </div>
+        <div class="tier-divider"></div>
+        <ul class="tier-features">
+          <li><span class="check-icon">✓</span> Custom UI Design (No templates)</li>
+          <li><span class="check-icon">✓</span> Lightning Fast Performance</li>
+          <li><span class="check-icon">✓</span> 5 Section Single-page Layout</li>
+          <li><span class="check-icon">✓</span> Lead Capture Integration</li>
+          <li><span class="check-icon">✓</span> Advanced SEO Foundations</li>
+          <li class="disabled-feature"><span class="cross-icon">✗</span> Multi-page Architecture</li>
+          <li class="disabled-feature"><span class="cross-icon">✗</span> Automated Client Portals</li>
+        </ul>
+        <div class="pricing-card-footer">
+          <a href="#contact" class="btn btn-outline btn-full-width start-project-plan" data-tier="Starter">Get
+            started</a>
+        </div>
+      </div>
+
+      <!-- Tier 2: Growth (Highlighted Plan) -->
+      <div class="pricing-card highlighted-pricing reveal-fade" id="pricing-tier-growth">
+        <div class="card-glow-element-active"></div>
+        <div class="popular-tag">Most Popular</div>
+        <div class="pricing-card-header">
+          <span class="tier-badge-glow">Scaleup</span>
+          <h3 class="tier-name">Growth</h3>
+          <div class="tier-price-wrapper">
+            <span class="currency">₹</span>
+            <span class="price-val" id="price-growth">5,000</span>
+            <span class="price-period" id="period-growth">/project</span>
+          </div>
+          <p class="tier-desc">Our flagship high-end business setup. Full multi-page experience with dynamic analytics.
+          </p>
+        </div>
+        <div class="tier-divider"></div>
+        <ul class="tier-features">
+          <li><span class="check-icon-purple">✓</span> Bespoke Multi-page Setup (5-8 Pages)</li>
+          <li><span class="check-icon-purple">✓</span> Dynamic Content System (CMS)</li>
+          <li><span class="check-icon-purple">✓</span> Elite Speed Engine (<1.0s Loads)</li>
+          <li><span class="check-icon-purple">✓</span> Interactive Contact Workflows</li>
+          <li><span class="check-icon-purple">✓</span> Advanced Search Keyword Mapping</li>
+          <li><span class="check-icon-purple">✓</span> 30 Days Post-Launch Support</li>
+          <li class="disabled-feature"><span class="cross-icon">✗</span> Dedicated Database Nodes</li>
+        </ul>
+        <div class="pricing-card-footer">
+          <a href="#contact" class="btn btn-primary btn-full-width start-project-plan" data-tier="Growth">Get scaled</a>
+        </div>
+      </div>
+
+      <!-- Tier 3: Elite -->
+      <div class="pricing-card reveal-fade" id="pricing-tier-elite">
+        <div class="card-glow-element"></div>
+        <div class="pricing-card-header">
+          <span class="tier-badge">Enterprise</span>
+          <h3 class="tier-name">Elite</h3>
+          <div class="tier-price-wrapper">
+            <span class="currency">₹</span>
+            <span class="price-val" id="price-elite">8,000</span>
+            <span class="price-period" id="period-elite">/project</span>
+          </div>
+          <p class="tier-desc">For platforms requiring advanced backend automations, secure accounts, and custom APIs.
+          </p>
+        </div>
+        <div class="tier-divider"></div>
+        <ul class="tier-features">
+          <li><span class="check-icon">✓</span> Unlimited Bespoke Layout Pages</li>
+          <li><span class="check-icon">✓</span> Customized React/Next.js Dashboards</li>
+          <li><span class="check-icon">✓</span> Dynamic API Integrations</li>
+          <li><span class="check-icon">✓</span> High-security Data Encryptions</li>
+          <li><span class="check-icon">✓</span> Comprehensive Conversion Tracking</li>
+          <li><span class="check-icon">✓</span> Direct Core Developer Hot-line</li>
+          <li><span class="check-icon">✓</span> Lifetime Structural QA Reviews</li>
+        </ul>
+        <div class="pricing-card-footer">
+          <a href="#contact" class="btn btn-outline btn-full-width start-project-plan" data-tier="Elite">Start
+            building</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Box Section ("Let's build something people remember") -->
+  <section class="cta-banner-section container reveal-fade">
+    <div class="cta-banner-content">
+      <div class="cta-badge">Ready to start?</div>
+      <h2 class="cta-banner-title">Let's build something <br class="hide-mobile">people remember.</h2>
+      <p class="cta-banner-subtext">No long pressure calls. Just real, honest feedback about your current site and a
+        clear blueprint to triple your speed and conversion.</p>
+      <div class="cta-banner-buttons">
+        <a href="#contact" class="btn btn-primary btn-large">Get proposal call</a>
+        <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="btn btn-outline-light btn-large">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            style="vertical-align: middle; margin-right: 8px;">
+            <path
+              d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+            </path>
+          </svg>
+          WhatsApp us
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form & Coordinates Section ("Get in touch") -->
+  <section class="contact-section container" id="contact">
+    <div class="section-header reveal-fade">
+      <div class="section-tag">Connect</div>
+      <h2 class="section-title">Get in touch</h2>
+    </div>
+
+    <div class="contact-grid">
+      <!-- Left Column: Quick Coordinates Cards -->
+      <div class="contact-coordinates reveal-fade">
+
+        <!-- Coordinate Card 1 -->
+        <a href="https://calendly.com" target="_blank" rel="noopener" class="coordinate-card purple-glow-hover">
+          <div class="coord-icon purple-bg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+              <line x1="16" y1="2" x2="16" y2="6"></line>
+              <line x1="8" y1="2" x2="8" y2="6"></line>
+              <line x1="3" y1="10" x2="21" y2="10"></line>
+            </svg>
+          </div>
+          <div class="coord-info">
+            <h4>Book a proposal call</h4>
+            <p>Pick a convenient 15-minute slot on our calendar.</p>
+          </div>
+        </a>
+
+        <!-- Coordinate Card 2 -->
+        <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="coordinate-card green-glow-hover">
+          <div class="coord-icon green-bg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path
+                d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z">
+              </path>
+            </svg>
+          </div>
+          <div class="coord-info">
+            <h4>Chat with us on WhatsApp</h4>
+            <p>Average response time: Under 5 minutes.</p>
+          </div>
+        </a>
+
+        <!-- Coordinate Card 3 -->
+        <a href="mailto:troyflex26@gmail.com" class="coordinate-card orange-glow-hover">
+          <div class="coord-icon orange-bg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+              <polyline points="22,6 12,13 2,6"></polyline>
+            </svg>
+          </div>
+          <div class="coord-info">
+            <h4>Email us directly</h4>
+            <p>troyflex26@gmail.com — Answer within 2 hours.</p>
+          </div>
+        </a>
+
+        <!-- Coordinate Card 4 -->
+        <div class="coordinate-card pink-glow-hover">
+          <div class="coord-icon pink-bg">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+          </div>
+          <div class="coord-info">
+            <h4>Visit our Chennai office</h4>
+            <p>No 5B, 2nd Street, SS Puram, Thirumullaivoyal, Chennai - 600062.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: Interactive Proposal Form -->
+      <div class="contact-form-panel reveal-fade-right">
+        <form class="interactive-form" id="proposal-form" action="#" method="POST">
+
+          <div class="form-row grid-2">
+            <div class="input-group">
+              <label for="form-name" class="input-label">Your Name</label>
+              <input type="text" id="form-name" class="form-input" placeholder="e.g. John Doe" required>
+            </div>
+
+            <div class="input-group">
+              <label for="form-email" class="input-label">Email Address</label>
+              <input type="email" id="form-email" class="form-input" placeholder="e.g. john@company.com" required>
+            </div>
+          </div>
+
+          <div class="form-row grid-2">
+            <div class="input-group">
+              <label for="form-company" class="input-label">Company Name</label>
+              <input type="text" id="form-company" class="form-input" placeholder="e.g. Acme Corp">
+            </div>
+
+            <div class="input-group">
+              <label for="form-interest" class="input-label">I'm interested in...</label>
+              <select id="form-interest" class="form-select">
+                <option value="Starter Plan">Starter Launchpack (₹45,000+)</option>
+                <option value="Growth Plan" selected>Growth Web Build (₹95,000+)</option>
+                <option value="Elite Plan">Elite Custom Dashboard (₹1,80,000+)</option>
+                <option value="Ongoing Maintenance">Monthly Maintenance Plan</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Dynamic Budget Slider (Premium Microinteraction) -->
+          <div class="input-group slider-group">
+            <div class="slider-label-row">
+              <label for="form-budget" class="input-label">Estimated Project Budget</label>
+              <span class="budget-value" id="budget-display">₹95,000</span>
+            </div>
+            <input type="range" id="form-budget" class="form-range" min="30000" max="300000" step="5000" value="95000">
+            <div class="slider-ticks">
+              <span>₹30K</span>
+              <span>₹100K</span>
+              <span>₹200K</span>
+              <span>₹300K+</span>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label for="form-project-details" class="input-label">Tell us about your project</label>
+            <textarea id="form-project-details" class="form-textarea"
+              placeholder="Briefly describe what you're trying to build, key features, or speed issues on your current site..."
+              rows="4" required></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full-width" id="form-submit-btn">
+            Send message <span class="btn-arrow">→</span>
+          </button>
+        </form>
+
+        <!-- Dynamic Simulated Contact Success Screen -->
+        <div class="success-screen-overlay" id="form-success-overlay">
+          <div class="success-card">
+            <div class="success-sparkle">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="2">
+                <polyline points="20 6 9 17 4 12"></polyline>
+              </svg>
+            </div>
+            <h3>Proposal request sent!</h3>
+            <p>Thank you <strong id="success-user-name">John</strong>. We have logged your request for <strong
+                id="success-interest">Growth Web Build</strong> with an estimated budget of <strong
+                id="success-budget">₹95,000</strong>.</p>
+            <p class="success-sub">A core developer will review your details and send a personalized video audit within
+              2 business hours.</p>
+            <button class="btn btn-outline" id="close-success-btn">Back to site</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deep Dive Portfolio Modal (Dynamic HTML) -->
+  <div class="project-modal" id="portfolio-detail-modal">
+    <div class="modal-card">
+      <button class="close-modal-btn" id="close-portfolio-modal" aria-label="Close modal">×</button>
+      <div class="modal-body" id="modal-project-content">
+        <!-- Content gets loaded dynamically in script.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container footer-grid">
+
+      <!-- Footer Left: Branding & Copy -->
+      <div class="footer-branding">
+        <a href="#" class="logo-link">
+          <div class="logo-icon-wrapper">
+            <svg class="logo-svg" width="28" height="28" viewBox="0 0 100 100" fill="none"
+              xmlns="http://www.w3.org/2000/svg">
+              <rect width="100" height="100" rx="30" fill="#4361ee" />
+              <rect x="33" y="34" width="34" height="6.5" rx="3.25" fill="white" />
+              <rect x="46.75" y="40.5" width="6.5" height="17" rx="3.25" fill="white" />
+              <path d="M42.25 61.5L50 69.25L57.75 61.5" stroke="white" stroke-width="6.5" stroke-linecap="round"
+                stroke-linejoin="round" fill="none" />
+            </svg>
+          </div>
+          <span class="logo-text">Troyflex<span class="dot">.</span></span>
+        </a>
+        <p class="footer-desc">
+          High-performance website engineering, responsive UI/UX architecture, and seamless cloud management built in
+          Chennai for global impact.
+        </p>
+        <div class="footer-socials">
+          <a href="#" class="social-icon" aria-label="Twitter">𝕏</a>
+          <a href="#" class="social-icon" aria-label="GitHub">⚙</a>
+          <a href="#" class="social-icon" aria-label="LinkedIn">💼</a>
+        </div>
+      </div>
+
+      <!-- Footer Columns: Navigation links -->
+      <div class="footer-column">
+        <h4>Services</h4>
+        <a href="#services">Design & Dev</a>
+        <a href="#services">SEO & Content</a>
+        <a href="#services">Optimization</a>
+        <a href="#services">Custom SaaS</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Company</h4>
+        <a href="#about">About</a>
+        <a href="#work">Work</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#contact">Contact</a>
+      </div>
+
+      <div class="footer-column">
+        <h4>Resources</h4>
+        <a href="#">Audit Tool</a>
+        <a href="#">Speed Check</a>
+        <a href="#">Sitemap</a>
+        <a href="#">Robots</a>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <div class="container footer-bottom-flex">
+        <span>© 2026 Troyflex Digital. All rights reserved.</span>
+        <span>Made with ❤️ in Chennai.</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Script Injection -->
+  <script src="script.js"></script>
+</body>
+
+</html>
