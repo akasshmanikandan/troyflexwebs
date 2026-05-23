@@ -415,9 +415,9 @@ document.addEventListener('DOMContentLoaded', () => {
     pricingCheckbox.addEventListener('change', () => {
       if (pricingCheckbox.checked) {
         // Switch to Monthly Maintenance Retainer Tiers
-        priceValStarter.innerText = '7,500';
-        priceValGrowth.innerText = '15,000';
-        priceValElite.innerText = '30,000';
+        priceValStarter.innerText = '2,000';
+        priceValGrowth.innerText = '5,000';
+        priceValElite.innerText = '8,000';
         
         periodStarter.innerText = '/month';
         periodGrowth.innerText = '/month';
@@ -427,9 +427,9 @@ document.addEventListener('DOMContentLoaded', () => {
         labelOnetime.classList.remove('active-label');
       } else {
         // Switch back to One-time Project development Tiers
-        priceValStarter.innerText = '45,000';
-        priceValGrowth.innerText = '95,000';
-        priceValElite.innerText = '1,80,000';
+        priceValStarter.innerText = '2,000';
+        priceValGrowth.innerText = '5,000';
+        priceValElite.innerText = '8,000';
 
         periodStarter.innerText = '/project';
         periodGrowth.innerText = '/project';
