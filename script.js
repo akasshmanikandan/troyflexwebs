@@ -431,9 +431,9 @@ document.addEventListener('DOMContentLoaded', () => {
         priceValGrowth.innerText = '5,000';
         priceValElite.innerText = '8,000';
 
-        periodStarter.innerText = '/project';
-        periodGrowth.innerText = '/project';
-        periodElite.innerText = '/project';
+        periodStarter.innerText = '';
+        periodGrowth.innerText = '';
+        periodElite.innerText = '';
 
         labelOnetime.classList.add('active-label');
         labelMonthly.classList.remove('active-label');
