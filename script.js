@@ -398,101 +398,15 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // ==========================================
-  // 8. Transparent Currency/Pricing Toggle
+  // 8. Auto-select Plan
   // ==========================================
-  const pricingCheckbox = document.getElementById('pricing-checkbox-toggle');
-  const priceValStarter = document.getElementById('price-starter');
-  const priceValGrowth = document.getElementById('price-growth');
-  const priceValElite = document.getElementById('price-elite');
-  const periodStarter = document.getElementById('period-starter');
-  const periodGrowth = document.getElementById('period-growth');
-  const periodElite = document.getElementById('period-elite');
-
-  const labelOnetime = document.getElementById('label-onetime');
-  const labelMonthly = document.getElementById('label-monthly');
-
-  if (pricingCheckbox) {
-    pricingCheckbox.addEventListener('change', () => {
-      if (pricingCheckbox.checked) {
-        // Switch to Monthly Maintenance Retainer Tiers
-        priceValStarter.innerText = '1,000';
-        priceValGrowth.innerText = '2,000';
-        priceValElite.innerText = '3,000';
-        
-        periodStarter.innerText = '/month';
-        periodGrowth.innerText = '/month';
-        periodElite.innerText = '/month';
-
-        labelMonthly.classList.add('active-label');
-        labelOnetime.classList.remove('active-label');
-      } else {
-        // Switch back to One-time Project development Tiers
-        priceValStarter.innerText = '2,000';
-        priceValGrowth.innerText = '5,000';
-        priceValElite.innerText = '8,000';
-
-        periodStarter.innerText = '';
-        periodGrowth.innerText = '';
-        periodElite.innerText = '';
-
-        labelOnetime.classList.add('active-label');
-        labelMonthly.classList.remove('active-label');
-      }
-    });
-  }
-
-  // ==========================================
-  // 9. Premium Interactive Budget Slider & Plan Select
-  // ==========================================
-  const budgetRange = document.getElementById('form-budget');
-  const budgetDisplay = document.getElementById('budget-display');
-  const formInterestSelect = document.getElementById('form-interest');
-
-  if (budgetRange && budgetDisplay) {
-    budgetRange.addEventListener('input', (e) => {
-      const val = parseInt(e.target.value);
-      
-      // Formatting to Indian Rupees String
-      let formattedVal = '₹' + val.toLocaleString('en-IN');
-      if (val >= 20000) {
-        formattedVal = '₹20,000+';
-      }
-      budgetDisplay.innerText = formattedVal;
-
-      // Auto-select correct plan in dropdown based on Budget Thresholds
-      if (val < 4000) {
-        formInterestSelect.value = 'Starter Plan';
-      } else if (val >= 4000 && val < 7000) {
-        formInterestSelect.value = 'Growth Plan';
-      } else {
-        formInterestSelect.value = 'Elite Plan';
-      }
-    });
-
-    // Auto-update Budget slider value if dropdown changes manually
-    formInterestSelect.addEventListener('change', (e) => {
-      const val = e.target.value;
-      if (val === 'Starter Plan') {
-        budgetRange.value = 2000;
-        budgetDisplay.innerText = '₹2,000';
-      } else if (val === 'Growth Plan') {
-        budgetRange.value = 5000;
-        budgetDisplay.innerText = '₹5,000';
-      } else if (val === 'Elite Plan') {
-        budgetRange.value = 8000;
-        budgetDisplay.innerText = '₹8,000';
-      }
-    });
-  }
-
-  // Auto scroll to contact and auto-select plan when "Get Started" buttons in tiers are clicked
   const planCTAs = document.querySelectorAll('.start-project-plan');
   planCTAs.forEach(btn => {
     btn.addEventListener('click', (e) => {
       const planName = btn.getAttribute('data-tier');
+      const formInterestSelect = document.getElementById('form-interest');
       if (formInterestSelect) {
         formInterestSelect.value = planName + ' Plan';
-        // Trigger manual select change handler to align slider value
         formInterestSelect.dispatchEvent(new Event('change'));
       }
     });
@@ -654,7 +568,6 @@ document.addEventListener('DOMContentLoaded', () => {
       const email = document.getElementById('form-email').value;
       const company = document.getElementById('form-company').value || 'Acme Corp';
       const interest = document.getElementById('form-interest').value;
-      const budget = budgetDisplay.innerText;
       const details = document.getElementById('form-project-details').value;
 
       // Disable submission button, trigger premium loading feedback
@@ -666,13 +579,12 @@ document.addEventListener('DOMContentLoaded', () => {
       // Simulate AJAX Server Communication Delay (1.5 seconds)
       setTimeout(() => {
         // Save in LocalStorage (for local state persistence proof)
-        const leadObject = { name, email, company, interest, budget, details, date: new Date().toISOString() };
+        const leadObject = { name, email, company, interest, details, date: new Date().toISOString() };
         localStorage.setItem('troyflex_lead', JSON.stringify(leadObject));
 
         // Populate Success Splash content
         document.getElementById('success-user-name').innerText = name;
         document.getElementById('success-interest').innerText = interest;
-        document.getElementById('success-budget').innerText = budget;
 
         // Show Success card
         successOverlay.classList.add('active');

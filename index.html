@@ -507,18 +507,7 @@
           </div>
         </div>
 
-        <!-- Bullet 3 -->
-        <div class="agency-bullet-item orange-border-hover">
-          <div class="bullet-color-box orange-bg">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3">
-              <polyline points="20 6 9 17 4 12"></polyline>
-            </svg>
-          </div>
-          <div class="bullet-info">
-            <h4>Transparent pricing</h4>
-            <p>Upfront fixed project pricing and predictable, month-to-month maintenance options. No surprise bills.</p>
-          </div>
-        </div>
+
 
         <!-- Bullet 4 -->
         <div class="agency-bullet-item pink-border-hover">
@@ -553,17 +542,7 @@
   <section class="pricing-section container" id="pricing">
     <div class="section-header text-center reveal-fade">
       <div class="section-tag">Investment</div>
-      <h2 class="section-title text-glow">Transparent pricing. No surprises.</h2>
-
-      <!-- Billing Model Toggle (Monthly Retainer vs One-time Setup) -->
-      <div class="pricing-toggle-wrapper">
-        <span class="pricing-toggle-label active-label" id="label-onetime">Project Development</span>
-        <label class="pricing-switch">
-          <input type="checkbox" id="pricing-checkbox-toggle">
-          <span class="pricing-slider"></span>
-        </label>
-        <span class="pricing-toggle-label" id="label-monthly">Monthly Maintenance</span>
-      </div>
+      <h2 class="section-title text-glow">Transparent packages. No surprises.</h2>
     </div>
 
     <!-- 3 pricing tiers -->
@@ -574,13 +553,7 @@
         <div class="pricing-card-header">
           <span class="tier-badge">Launchpack</span>
           <h3 class="tier-name">Starter</h3>
-          <div class="tier-price-wrapper">
-            <span class="price-prefix" style="font-size: 0.95rem; color: var(--text-gray-500); margin-right: 6px; align-self: center;">Starting from</span>
-            <span class="currency">₹</span>
-            <span class="price-val" id="price-starter">2,000</span>
-            <span class="price-period" id="period-starter"></span>
-          </div>
-          <p class="tier-desc">Perfect for high-growth startups requiring a premium, fast single-page launch site.</p>
+          <p class="tier-desc" style="margin-top: 15px;">Perfect for high-growth startups requiring a premium, fast single-page launch site.</p>
         </div>
         <div class="tier-divider"></div>
         <ul class="tier-features">
@@ -605,14 +578,7 @@
         <div class="pricing-card-header">
           <span class="tier-badge-glow">Scaleup</span>
           <h3 class="tier-name">Growth</h3>
-          <div class="tier-price-wrapper">
-            <span class="price-prefix" style="font-size: 0.95rem; color: var(--text-gray-500); margin-right: 6px; align-self: center;">Starting from</span>
-            <span class="currency">₹</span>
-            <span class="price-val" id="price-growth">5,000</span>
-            <span class="price-period" id="period-growth"></span>
-          </div>
-          <p class="tier-desc">Our flagship high-end business setup. Full multi-page experience with dynamic analytics.
-          </p>
+          <p class="tier-desc" style="margin-top: 15px;">Our flagship high-end business setup. Full multi-page experience with dynamic analytics.</p>
         </div>
         <div class="tier-divider"></div>
         <ul class="tier-features">
@@ -635,14 +601,7 @@
         <div class="pricing-card-header">
           <span class="tier-badge">Enterprise</span>
           <h3 class="tier-name">Elite</h3>
-          <div class="tier-price-wrapper">
-            <span class="price-prefix" style="font-size: 0.95rem; color: var(--text-gray-500); margin-right: 6px; align-self: center;">Starting from</span>
-            <span class="currency">₹</span>
-            <span class="price-val" id="price-elite">8,000</span>
-            <span class="price-period" id="period-elite"></span>
-          </div>
-          <p class="tier-desc">For platforms requiring advanced backend automations, secure accounts, and custom APIs.
-          </p>
+          <p class="tier-desc" style="margin-top: 15px;">For platforms requiring advanced backend automations, secure accounts, and custom APIs.</p>
         </div>
         <div class="tier-divider"></div>
         <ul class="tier-features">
@@ -780,26 +739,11 @@
             <div class="input-group">
               <label for="form-interest" class="input-label">I'm interested in...</label>
               <select id="form-interest" class="form-select">
-                <option value="Starter Plan">Starter Launchpack (₹2,000+)</option>
-                <option value="Growth Plan" selected>Growth Web Build (₹5,000+)</option>
-                <option value="Elite Plan">Elite Custom Dashboard (₹8,000+)</option>
+                <option value="Starter Plan">Starter Launchpack</option>
+                <option value="Growth Plan" selected>Growth Web Build</option>
+                <option value="Elite Plan">Elite Custom Dashboard</option>
                 <option value="Ongoing Maintenance">Monthly Maintenance Plan</option>
               </select>
-            </div>
-          </div>
-
-          <!-- Dynamic Budget Slider (Premium Microinteraction) -->
-          <div class="input-group slider-group">
-            <div class="slider-label-row">
-              <label for="form-budget" class="input-label">Estimated Project Budget</label>
-              <span class="budget-value" id="budget-display">₹5,000</span>
-            </div>
-            <input type="range" id="form-budget" class="form-range" min="1000" max="20000" step="500" value="5000">
-            <div class="slider-ticks">
-              <span>₹1K</span>
-              <span>₹5K</span>
-              <span>₹10K</span>
-              <span>₹20K+</span>
             </div>
           </div>
 
@@ -825,8 +769,7 @@
             </div>
             <h3>Proposal request sent!</h3>
             <p>Thank you <strong id="success-user-name">John</strong>. We have logged your request for <strong
-                id="success-interest">Growth Web Build</strong> with an estimated budget of <strong
-                id="success-budget">₹95,000</strong>.</p>
+                id="success-interest">Growth Web Build</strong>.</p>
             <p class="success-sub">A core developer will review your details and send a personalized video audit within
               2 business hours.</p>
             <button class="btn btn-outline" id="close-success-btn">Back to site</button>
