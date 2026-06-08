@@ -2,7 +2,6 @@ require("dotenv").config();
 const express = require("express");
 const cors = require("cors");
 const path = require("path");
-const { Resend } = require("resend");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,19 +13,25 @@ app.use(express.json());
 // Serve static files from the current directory
 app.use(express.static(__dirname));
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 app.post("/api/contact", async (req, res) => {
   try {
     const { name, email, company, interest, details } = req.body;
+    const brevoApiKey = process.env.BREVO_API_KEY;
 
     // 1. Send notification to support@troyflex.dev
-    const { data: teamData, error: teamError } = await resend.emails.send({
-      from: "Troyflex <support@troyflex.dev>",
-      to: ["support@troyflex.dev"],
-      replyTo: email,
-      subject: `New Quote Request from ${name}`,
-      html: `
+    const teamResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': brevoApiKey,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: { name: 'Troyflex', email: 'support@troyflex.dev' },
+        to: [{ email: 'support@troyflex.dev' }],
+        replyTo: { email: email },
+        subject: `New Quote Request from ${name}`,
+        htmlContent: `
         <div style="font-family: sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px;">
           <h2 style="color: #4361ee; border-bottom: 2px solid #00f5d4; padding-bottom: 10px;">New Quote Request</h2>
           <p>You have received a new inquiry from the website:</p>
@@ -41,20 +46,28 @@ app.post("/api/contact", async (req, res) => {
             <p style="white-space: pre-wrap;">${details}</p>
           </div>
         </div>
-      `,
+        `
+      })
     });
 
-    if (teamError) {
-      console.error("❌ Resend Team Error:", teamError);
+    if (!teamResponse.ok) {
+      console.error("❌ Brevo Team Error:", await teamResponse.text());
     }
 
     // 2. Send auto-reply to the customer
-    const { data: customerData, error: customerError } = await resend.emails.send({
-      from: "Troyflex Support <support@troyflex.dev>",
-      to: [email],
-      replyTo: "support@troyflex.dev",
-      subject: `Proposal Request Received - Troyflex`,
-      html: `
+    const customerResponse = await fetch('https://api.brevo.com/v3/smtp/email', {
+      method: 'POST',
+      headers: {
+        'accept': 'application/json',
+        'api-key': brevoApiKey,
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify({
+        sender: { name: 'Troyflex Support', email: 'support@troyflex.dev' },
+        to: [{ email: email }],
+        replyTo: { email: 'support@troyflex.dev' },
+        subject: `Proposal Request Received - Troyflex`,
+        htmlContent: `
         <div style="font-family: sans-serif; max-width: 600px; margin: auto; border: 1px solid #eee; padding: 20px;">
           <p>Dear <strong>${name}</strong>,</p>
           <p>Thank you for reaching out to <strong>Troyflex</strong>.</p>
@@ -68,14 +81,15 @@ app.post("/api/contact", async (req, res) => {
             This is an automated response. Please do not reply directly to this email if you have urgent queries; instead, contact us directly at support@troyflex.dev.
           </p>
         </div>
-      `,
+        `
+      })
     });
 
-    if (customerError) {
-      console.error("❌ Resend Auto-reply Error:", customerError);
+    if (!customerResponse.ok) {
+      console.error("❌ Brevo Auto-reply Error:", await customerResponse.text());
     }
 
-    return res.status(200).json({ success: true, message: "Request processed via Resend." });
+    return res.status(200).json({ success: true, message: "Request processed via Brevo." });
   } catch (error) {
     console.error("API Error:", error);
     return res.status(500).json({ success: false, message: "Failed to process request", error: error.message });
