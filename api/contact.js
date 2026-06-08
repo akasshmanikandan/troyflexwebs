@@ -1,19 +1,21 @@
-require("dotenv").config();
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
+module.exports = async function handler(req, res) {
+  // CORS Headers for Vercel Serverless Function
+  res.setHeader('Access-Control-Allow-Credentials', true)
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'GET,OPTIONS,PATCH,DELETE,POST,PUT')
+  res.setHeader(
+    'Access-Control-Allow-Headers',
+    'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end()
+  }
 
-// Middleware
-app.use(cors());
-app.use(express.json());
+  if (req.method !== 'POST') {
+    return res.status(405).json({ message: 'Method Not Allowed' });
+  }
 
-// Serve static files from the current directory
-app.use(express.static(__dirname));
-
-app.post("/api/contact", async (req, res) => {
   try {
     const { name, email, company, interest, details } = req.body;
     const brevoApiKey = process.env.BREVO_API_KEY;
@@ -94,18 +96,4 @@ app.post("/api/contact", async (req, res) => {
     console.error("API Error:", error);
     return res.status(500).json({ success: false, message: "Failed to process request", error: error.message });
   }
-});
-
-// Fallback to index.html for all other routes
-app.use((req, res) => {
-  res.sendFile(path.join(__dirname, "index.html"));
-});
-
-// Start the server only if running locally, otherwise export for Serverless (Vercel)
-if (process.env.NODE_ENV !== "production") {
-  app.listen(PORT, () => {
-    console.log(`Server is running on http://localhost:${PORT}`);
-  });
-}
-
-module.exports = app;
+};
