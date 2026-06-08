@@ -576,26 +576,46 @@ document.addEventListener('DOMContentLoaded', () => {
         submitBtn.innerHTML = 'Sending details... <span class="spinner">⚙</span>';
       }
 
-      // Simulate AJAX Server Communication Delay (1.5 seconds)
-      setTimeout(() => {
-        // Save in LocalStorage (for local state persistence proof)
-        const leadObject = { name, email, company, interest, details, date: new Date().toISOString() };
-        localStorage.setItem('troyflex_lead', JSON.stringify(leadObject));
+      // Make API Request to Server
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, company, interest, details })
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.success) {
+          // Save in LocalStorage (for local state persistence proof)
+          const leadObject = { name, email, company, interest, details, date: new Date().toISOString() };
+          localStorage.setItem('troyflex_lead', JSON.stringify(leadObject));
 
-        // Populate Success Splash content
-        document.getElementById('success-user-name').innerText = name;
-        document.getElementById('success-interest').innerText = interest;
+          // Populate Success Splash content
+          const successUserName = document.getElementById('success-user-name');
+          const successInterest = document.getElementById('success-interest');
+          if (successUserName) successUserName.innerText = name;
+          if (successInterest) successInterest.innerText = interest;
 
-        // Show Success card
-        successOverlay.classList.add('active');
-        
-        // Reset Form elements
-        proposalForm.reset();
+          // Show Success card
+          successOverlay.classList.add('active');
+          
+          // Reset Form elements
+          proposalForm.reset();
+        } else {
+          alert("Something went wrong while sending your request. Please try again or email us directly.");
+        }
+      })
+      .catch(err => {
+        console.error('Contact Error:', err);
+        alert("An error occurred. Please try again.");
+      })
+      .finally(() => {
         if (submitBtn) {
           submitBtn.disabled = false;
           submitBtn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
         }
-      }, 1500);
+      });
     });
 
     if (closeSuccessBtn) {
