@@ -44,7 +44,7 @@ module.exports = async function handler(req, res) {
 
     // 1. Send notification to support@troyflex.dev
     await transporter.sendMail({
-      from: `"Troyflex Website" <${smtpUser}>`,
+      from: '"Troyflex Website" <support@troyflex.dev>',
       to: 'support@troyflex.dev',
       replyTo: email,
       subject: `New Quote Request from ${name}`,
