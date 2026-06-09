@@ -1805,16 +1805,25 @@ img {
 }
 
 .contact-grid {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 50px;
   margin-top: 48px;
 }
 
 .contact-coordinates {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
   gap: 20px;
+  width: 100%;
+  max-width: 900px;
+}
+
+@media (max-width: 768px) {
+  .contact-coordinates {
+    grid-template-columns: 1fr;
+  }
 }
 
 .coordinate-card {

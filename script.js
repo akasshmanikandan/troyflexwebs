@@ -551,79 +551,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // ==========================================
-  // 11. Interactive Contact Form (AJAX Simulation)
-  // ==========================================
-  const proposalForm = document.getElementById('proposal-form');
-  const successOverlay = document.getElementById('form-success-overlay');
-  const closeSuccessBtn = document.getElementById('close-success-btn');
-  const submitBtn = document.getElementById('form-submit-btn');
 
-  if (proposalForm && successOverlay) {
-    proposalForm.addEventListener('submit', (e) => {
-      e.preventDefault();
-
-      // Collect actual form values
-      const name = document.getElementById('form-name').value;
-      const email = document.getElementById('form-email').value;
-      const company = document.getElementById('form-company').value || 'Acme Corp';
-      const interest = document.getElementById('form-interest').value;
-      const details = document.getElementById('form-project-details').value;
-
-      // Disable submission button, trigger premium loading feedback
-      if (submitBtn) {
-        submitBtn.disabled = true;
-        submitBtn.innerHTML = 'Sending details... <span class="spinner">⚙</span>';
-      }
-
-      // Make API Request to Server
-      fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ name, email, company, interest, details })
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.success) {
-          // Save in LocalStorage (for local state persistence proof)
-          const leadObject = { name, email, company, interest, details, date: new Date().toISOString() };
-          localStorage.setItem('troyflex_lead', JSON.stringify(leadObject));
-
-          // Populate Success Splash content
-          const successUserName = document.getElementById('success-user-name');
-          const successInterest = document.getElementById('success-interest');
-          if (successUserName) successUserName.innerText = name;
-          if (successInterest) successInterest.innerText = interest;
-
-          // Show Success card
-          successOverlay.classList.add('active');
-          
-          // Reset Form elements
-          proposalForm.reset();
-        } else {
-          alert("Something went wrong while sending your request. Please try again or email us directly.");
-        }
-      })
-      .catch(err => {
-        console.error('Contact Error:', err);
-        alert("An error occurred. Please try again.");
-      })
-      .finally(() => {
-        if (submitBtn) {
-          submitBtn.disabled = false;
-          submitBtn.innerHTML = 'Send message <span class="btn-arrow">→</span>';
-        }
-      });
-    });
-
-    if (closeSuccessBtn) {
-      closeSuccessBtn.addEventListener('click', () => {
-        successOverlay.classList.remove('active');
-      });
-    }
-  }
 
   // ==========================================
   // 12. Vercel / Linear Glowing Borders Hover Trick
