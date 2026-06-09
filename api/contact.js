@@ -16,11 +16,11 @@ module.exports = async function handler(req, res) {
   }
 
   // Validate env vars
-  const smtpUser = process.env.BREVO_SMTP_USER;
-  const smtpPass = process.env.BREVO_SMTP_PASS;
+  const smtpUser = process.env.EMAIL_UNAME;
+  const smtpPass = process.env.EMAIL_PASS;
 
   if (!smtpUser || !smtpPass) {
-    console.error('❌ BREVO_SMTP_USER or BREVO_SMTP_PASS is not set!');
+    console.error('❌ EMAIL_UNAME or EMAIL_PASS is not set!');
     return res.status(500).json({ success: false, message: 'Server configuration error.' });
   }
 
