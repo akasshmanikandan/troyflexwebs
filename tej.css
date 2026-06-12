@@ -1,0 +1,509 @@
+/* ==========================================
+   Tej AI Assistant - CSS Style System
+   Integrated with Troyflex design tokens
+   ========================================== */
+
+/* --- Floating Chat Bubble (Trigger) --- */
+#tej-trigger {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 65px;
+  height: 65px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--color-purple), var(--color-teal));
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 15px rgba(157, 78, 221, 0.3);
+  cursor: pointer;
+  z-index: 999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  padding: 0;
+  overflow: hidden;
+}
+
+#tej-trigger:hover {
+  transform: scale(1.08) translateY(-3px);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 25px rgba(0, 245, 212, 0.5);
+}
+
+#tej-trigger:active {
+  transform: scale(0.95);
+}
+
+.tej-trigger-icon {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+/* Pulsing Outer Aura for Collapsed State */
+.tej-pulse-ring {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 2.5px solid var(--color-purple);
+  box-sizing: border-box;
+  animation: tej-pulse-ring-anim 2.5s infinite;
+  pointer-events: none;
+}
+
+@keyframes tej-pulse-ring-anim {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  50% {
+    opacity: 0.4;
+  }
+  100% {
+    transform: scale(1.35);
+    opacity: 0;
+  }
+}
+
+/* --- Chat Window --- */
+#tej-chat-window {
+  position: fixed;
+  bottom: 110px;
+  right: 30px;
+  width: 380px;
+  height: 560px;
+  background: rgba(13, 10, 27, 0.85);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: var(--border-glass);
+  border-radius: var(--border-radius-md);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6), 0 0 35px rgba(157, 78, 221, 0.15);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(30px) scale(0.95);
+  transition: opacity 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              visibility 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), 
+              transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#tej-chat-window.open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0) scale(1);
+}
+
+/* Window Header */
+.tej-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.tej-header-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.tej-header-avatar {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(157, 78, 221, 0.4);
+  overflow: hidden;
+  background: var(--bg-secondary);
+}
+
+.tej-header-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.tej-header-status-dot {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--color-teal);
+  border: 2px solid var(--bg-secondary);
+  box-shadow: 0 0 6px var(--color-teal);
+}
+
+.tej-header-info h4 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin: 0;
+  line-height: 1.2;
+}
+
+.tej-header-info span {
+  font-size: 0.75rem;
+  color: var(--color-teal);
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.tej-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tej-control-btn {
+  background: none;
+  border: none;
+  color: var(--text-gray-300);
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.tej-control-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-white);
+}
+
+.tej-control-btn.active {
+  color: var(--color-teal);
+  background: rgba(0, 245, 212, 0.1);
+  box-shadow: 0 0 10px rgba(0, 245, 212, 0.2);
+}
+
+/* Chat Message Logs */
+.tej-body {
+  flex-grow: 1;
+  padding: 20px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  scroll-behavior: smooth;
+}
+
+/* Scrollbar customization for chat body */
+.tej-body::-webkit-scrollbar {
+  width: 5px;
+}
+.tej-body::-webkit-scrollbar-track {
+  background: transparent;
+}
+.tej-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+.tej-body::-webkit-scrollbar-thumb:hover {
+  background: var(--color-purple);
+}
+
+/* Messages */
+.tej-message {
+  max-width: 80%;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  line-height: 1.45;
+  animation: tej-fade-in-up 0.3s ease forwards;
+  position: relative;
+  word-wrap: break-word;
+}
+
+@keyframes tej-fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tej-message-bot {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-gray-100);
+  border-radius: 16px 16px 16px 4px;
+}
+
+.tej-message-user {
+  align-self: flex-end;
+  background: linear-gradient(135deg, var(--color-purple), #7b2cbf);
+  color: var(--text-white);
+  border-radius: 16px 16px 4px 16px;
+  box-shadow: 0 4px 12px rgba(157, 78, 221, 0.25);
+}
+
+.tej-message a {
+  color: var(--color-teal);
+  text-decoration: underline;
+  font-weight: 500;
+  transition: color var(--transition-fast);
+}
+
+.tej-message a:hover {
+  color: var(--text-white);
+}
+
+/* Suggestion Chips Container */
+.tej-suggestions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 4px 20px 14px 20px;
+}
+
+.tej-chip {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  border-radius: 20px;
+  padding: 7px 14px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-gray-300);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.tej-chip:hover {
+  background: rgba(0, 245, 212, 0.05);
+  border-color: var(--color-teal);
+  color: var(--text-white);
+  box-shadow: 0 0 10px rgba(0, 245, 212, 0.15);
+  transform: translateY(-1px);
+}
+
+/* Typing Indicator */
+.tej-typing-indicator {
+  align-self: flex-start;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 12px 20px;
+  border-radius: 16px 16px 16px 4px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.tej-dot {
+  width: 6px;
+  height: 6px;
+  background-color: var(--text-gray-300);
+  border-radius: 50%;
+  animation: tej-bounce 1.4s infinite ease-in-out both;
+}
+
+.tej-dot:nth-child(1) { animation-delay: -0.32s; }
+.tej-dot:nth-child(2) { animation-delay: -0.16s; }
+
+@keyframes tej-bounce {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1.0); }
+}
+
+/* --- Input Area --- */
+.tej-footer {
+  padding: 16px 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  background: rgba(7, 5, 15, 0.9);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.tej-input-wrapper {
+  flex-grow: 1;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.tej-input {
+  width: 100%;
+  background: var(--bg-input);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 8px;
+  padding: 12px 42px 12px 14px;
+  color: var(--text-white);
+  font-size: 0.9rem;
+  transition: all var(--transition-fast);
+}
+
+.tej-input::placeholder {
+  color: var(--text-gray-500);
+}
+
+.tej-input:focus {
+  border-color: var(--color-purple);
+  box-shadow: 0 0 10px rgba(157, 78, 221, 0.2);
+  background: rgba(10, 8, 22, 0.95);
+}
+
+/* Mic Button Inside Input */
+.tej-mic-btn {
+  position: absolute;
+  right: 10px;
+  background: none;
+  border: none;
+  color: var(--text-gray-300);
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+}
+
+.tej-mic-btn:hover {
+  color: var(--color-teal);
+  background: rgba(255, 255, 255, 0.05);
+}
+
+/* Recording State */
+.tej-mic-btn.recording {
+  color: var(--color-pink);
+  animation: tej-pulse-mic 1.5s infinite;
+}
+
+@keyframes tej-pulse-mic {
+  0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 37, 133, 0.4); }
+  70% { transform: scale(1.1); box-shadow: 0 0 0 8px rgba(247, 37, 133, 0); }
+  100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(247, 37, 133, 0); }
+}
+
+/* Send Button */
+.tej-send-btn {
+  background: linear-gradient(135deg, var(--color-purple), #7b2cbf);
+  color: var(--text-white);
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 10px rgba(157, 78, 221, 0.2);
+}
+
+.tej-send-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 15px rgba(157, 78, 221, 0.45);
+  background: linear-gradient(135deg, #7b2cbf, var(--color-purple));
+}
+
+.tej-send-btn:active {
+  transform: translateY(0);
+}
+
+/* --- Voice Input Active Indicator Overlay --- */
+.tej-voice-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(7, 5, 15, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  z-index: 10;
+  animation: tej-fade-in 0.25s ease forwards;
+}
+
+@keyframes tej-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.tej-voice-waves {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  height: 50px;
+}
+
+.tej-voice-wave {
+  width: 4px;
+  height: 10px;
+  background: linear-gradient(to top, var(--color-purple), var(--color-teal));
+  border-radius: 4px;
+  animation: tej-voice-wave-anim 1s ease-in-out infinite alternate;
+}
+
+.tej-voice-wave:nth-child(1) { animation-delay: 0.1s; height: 15px; }
+.tej-voice-wave:nth-child(2) { animation-delay: 0.3s; height: 35px; }
+.tej-voice-wave:nth-child(3) { animation-delay: 0.5s; height: 20px; }
+.tej-voice-wave:nth-child(4) { animation-delay: 0.2s; height: 45px; }
+.tej-voice-wave:nth-child(5) { animation-delay: 0.4s; height: 15px; }
+
+@keyframes tej-voice-wave-anim {
+  0% { transform: scaleY(0.3); }
+  100% { transform: scaleY(1.2); }
+}
+
+.tej-voice-text {
+  font-size: 0.85rem;
+  color: var(--color-teal);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  animation: tej-pulse-text 1.5s infinite alternate;
+}
+
+@keyframes tej-pulse-text {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+/* --- Responsive Styling --- */
+@media (max-width: 480px) {
+  #tej-trigger {
+    bottom: 20px;
+    right: 20px;
+    width: 56px;
+    height: 56px;
+  }
+  
+  #tej-chat-window {
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    border: none;
+  }
+  
+  #tej-chat-window.open {
+    transform: translateY(0) scale(1);
+  }
+  
+  .tej-header {
+    padding: 16px 20px;
+    border-top: 3px solid var(--color-purple); /* Premium look boundary */
+  }
+}
