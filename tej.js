@@ -1,40 +1,115 @@
-/* ==========================================
-   Tej AI Assistant - JavaScript Client Engine
-   Controls UI states, session memory, Web Speech
-   TTS/STT APIs, and Vercel serverless backend.
-   ========================================== */
-
+/* Tej Quote Orb - floating voice-first quote assistant */
 (function () {
-  // --- Configuration & Constants ---
-  const API_ENDPOINT = '/api/chat';
+  const QUOTE_ENDPOINT = '/api/quote';
   const MASCOT_IMAGE = 'tej.png';
-  const SUGGESTIONS = [
-    'Tell me about Troyflex',
-    'What are your services?',
-    'Show pricing packages',
-    'How do I schedule a call?'
-  ];
-  const WELCOME_MESSAGE = `Hi! I'm **Tej**, your Troyflex digital assistant. 🚀 I can help you explore our services, find a pricing package, learn about our launch process, or guide you to book a proposal call. How can I help you today?`;
+  const WHATSAPP_NUMBER = '917358615527';
 
-  // --- State Variables ---
-  let isOpen = false;
-  let isRecording = false;
-  let ttsEnabled = sessionStorage.getItem('tej_tts_enabled') === 'true';
-  let chatHistory = [];
-  let recognition = null;
-
-  // --- SVG Icons ---
-  const ICONS = {
-    volumeOn: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>`,
-    volumeOff: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>`,
-    close: `<svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>`,
-    mic: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>`,
-    send: `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg>`
+  const LANGUAGES = {
+    'en': { code: 'en-IN', start: 'Start quote', mic: 'Speak', skip: 'Skip', back: 'Back' },
+    'ta': { code: 'ta-IN', start: 'Quote start', mic: 'Pesunga', skip: 'Skip', back: 'Back' },
+    'hi': { code: 'hi-IN', start: 'Quote start', mic: 'Boliyega', skip: 'Skip', back: 'Back' },
+    'te': { code: 'te-IN', start: 'Quote start', mic: 'Speak', skip: 'Skip', back: 'Back' },
+    'ml': { code: 'ml-IN', start: 'Quote start', mic: 'Speak', skip: 'Skip', back: 'Back' },
+    'kn': { code: 'kn-IN', start: 'Quote start', mic: 'Speak', skip: 'Skip', back: 'Back' }
   };
 
-  // --- Dynamic DOM Injection ---
-  function injectWidgetHTML() {
-    // Check if container exists, create if not
+  const QUESTION_FLOW = [
+    {
+      key: 'language',
+      face: 'happy',
+      text: 'I can build a quick website quote. Which language should I use?',
+      options: [
+        { label: 'English', value: 'en' },
+        { label: 'Tamil', value: 'ta' },
+        { label: 'Hindi', value: 'hi' },
+        { label: 'Telugu', value: 'te' },
+        { label: 'Malayalam', value: 'ml' },
+        { label: 'Kannada', value: 'kn' }
+      ]
+    },
+    {
+      key: 'businessType',
+      text: 'What kind of business is this for?',
+      placeholder: 'Example: clinic, logistics, coaching, restaurant'
+    },
+    {
+      key: 'projectType',
+      text: 'Are we creating a new website or upgrading an existing one?',
+      options: [
+        { label: 'New website', value: 'new' },
+        { label: 'Redesign', value: 'redesign' },
+        { label: 'Speed fix', value: 'speed' },
+        { label: 'Web app', value: 'app' }
+      ]
+    },
+    {
+      key: 'pages',
+      text: 'How many pages do you roughly need?',
+      options: [
+        { label: '1 page', value: '1' },
+        { label: '3-5 pages', value: '5' },
+        { label: '6-10 pages', value: '10' },
+        { label: '10+ pages', value: '15' }
+      ]
+    },
+    {
+      key: 'features',
+      text: 'Pick the features you need.',
+      multiple: true,
+      options: [
+        { label: 'Contact forms', value: 'forms' },
+        { label: 'Booking', value: 'booking' },
+        { label: 'Payments', value: 'payments' },
+        { label: 'CMS/blog', value: 'cms' },
+        { label: 'SEO setup', value: 'seo' },
+        { label: 'Dashboard', value: 'dashboard' },
+        { label: 'Multilingual', value: 'multilingual' },
+        { label: 'Maintenance', value: 'maintenance' }
+      ]
+    },
+    {
+      key: 'timeline',
+      text: 'How soon do you want it live?',
+      options: [
+        { label: '1 week', value: 'urgent' },
+        { label: '2-3 weeks', value: 'normal' },
+        { label: '1 month+', value: 'relaxed' }
+      ]
+    },
+    {
+      key: 'budget',
+      text: 'Do you already have a budget range?',
+      options: [
+        { label: 'Under 25k', value: 'under25' },
+        { label: '25k-60k', value: '25to60' },
+        { label: '60k-1.2L', value: '60to120' },
+        { label: '1.2L+', value: '120plus' },
+        { label: 'Not sure', value: 'unknown' }
+      ]
+    },
+    {
+      key: 'contact',
+      text: 'Last bit: your name and WhatsApp/email, so Troyflex can follow up.',
+      placeholder: 'Example: Akash, 98765 43210'
+    }
+  ];
+
+  let currentStep = 0;
+  let answers = {};
+  let selectedMulti = new Set();
+  let recognition = null;
+  let isListening = false;
+  let hasUserInteracted = false;
+  let canSpeak = false;
+
+  function init() {
+    injectWidget();
+    setupSpeechRecognition();
+    bindBaseEvents();
+    setTimeout(showNudge, 20000);
+  }
+
+  function injectWidget() {
     let root = document.getElementById('tej-widget-root');
     if (!root) {
       root = document.createElement('div');
@@ -42,446 +117,355 @@
       document.body.appendChild(root);
     }
 
-    const widgetTemplate = `
-      <!-- Collapsed Floating Action Button -->
-      <button id="tej-trigger" aria-label="Open Tej AI Assistant">
-        <div class="tej-pulse-ring"></div>
-        <img class="tej-trigger-icon" src="${MASCOT_IMAGE}" alt="Tej" />
-      </button>
-
-      <!-- Expanded Chat Card Window -->
-      <div id="tej-chat-window" role="dialog" aria-label="Tej AI Chat Panel">
-        <!-- Header -->
-        <div class="tej-header">
-          <div class="tej-header-profile">
-            <div class="tej-header-avatar">
-              <img src="${MASCOT_IMAGE}" alt="Tej Profile" />
-              <div class="tej-header-status-dot"></div>
-            </div>
-            <div class="tej-header-info">
-              <h4>Tej</h4>
-              <span>AI Representative • Online</span>
-            </div>
-          </div>
-          <div class="tej-header-controls">
-            <!-- Text-to-Speech Toggle -->
-            <button id="tej-tts-toggle" class="tej-control-btn ${ttsEnabled ? 'active' : ''}" title="Toggle Voice Responses">
-              ${ttsEnabled ? ICONS.volumeOn : ICONS.volumeOff}
-            </button>
-            <!-- Close Button -->
-            <button id="tej-close-btn" class="tej-control-btn" title="Close Panel">
-              ${ICONS.close}
-            </button>
-          </div>
+    root.innerHTML = `
+      <section id="tej-orb-widget" class="tej-orb-idle" aria-live="polite">
+        <div id="tej-speech-pop" class="tej-speech-pop">
+          <button id="tej-pop-close" class="tej-pop-close" aria-label="Dismiss Tej">×</button>
+          <p id="tej-pop-text">Want a quick website quote? I can estimate it in 60 seconds.</p>
+          <button id="tej-pop-start" class="tej-mini-cta">Start quote</button>
         </div>
 
-        <!-- Chat Logs Body -->
-        <div id="tej-chat-body" class="tej-body"></div>
+        <button id="tej-orb" class="tej-orb" aria-label="Start Troyflex quote assistant">
+          <span class="tej-orb-shadow"></span>
+          <span id="tej-face" class="tej-face tej-face-idle">
+            <span class="tej-eye tej-eye-left"></span>
+            <span class="tej-eye tej-eye-right"></span>
+            <span class="tej-mouth"></span>
+          </span>
+          <img src="${MASCOT_IMAGE}" alt="" class="tej-orb-image" />
+        </button>
 
-        <!-- Suggestion Chips -->
-        <div id="tej-suggestions" class="tej-suggestions"></div>
-
-        <!-- Footer Input Area -->
-        <div class="tej-footer">
-          <div class="tej-input-wrapper">
-            <input type="text" id="tej-input-field" class="tej-input" placeholder="Ask Tej a question..." autocomplete="off" />
-            <!-- Microphone Button -->
-            <button id="tej-mic-btn" class="tej-mic-btn" title="Speak to Tej">
-              ${ICONS.mic}
-            </button>
+        <div id="tej-quote-flow" class="tej-quote-flow" role="dialog" aria-label="Troyflex quote assistant">
+          <div class="tej-flow-top">
+            <div>
+              <span class="tej-flow-kicker">Tej quote engine</span>
+              <h3>Website estimate</h3>
+            </div>
+            <button id="tej-flow-close" class="tej-icon-btn" aria-label="Close quote assistant">×</button>
           </div>
-          <!-- Send Button -->
-          <button id="tej-send-btn" class="tej-send-btn" title="Send Message">
-            ${ICONS.send}
-          </button>
+          <div class="tej-progress"><span id="tej-progress-bar"></span></div>
+          <div id="tej-flow-body" class="tej-flow-body"></div>
+          <div class="tej-flow-actions">
+            <button id="tej-back" class="tej-secondary-btn">Back</button>
+            <button id="tej-mic" class="tej-secondary-btn">Speak</button>
+            <button id="tej-next" class="tej-primary-btn">Next</button>
+          </div>
         </div>
-      </div>
+      </section>
+    `;
+  }
+
+  function bindBaseEvents() {
+    document.addEventListener('click', () => {
+      hasUserInteracted = true;
+    }, { once: true });
+
+    document.getElementById('tej-orb').addEventListener('click', openFlow);
+    document.getElementById('tej-pop-start').addEventListener('click', openFlow);
+    document.getElementById('tej-pop-close').addEventListener('click', hideNudge);
+    document.getElementById('tej-flow-close').addEventListener('click', closeFlow);
+    document.getElementById('tej-back').addEventListener('click', goBack);
+    document.getElementById('tej-next').addEventListener('click', goNext);
+    document.getElementById('tej-mic').addEventListener('click', toggleVoice);
+  }
+
+  function showNudge() {
+    if (sessionStorage.getItem('tej_quote_dismissed') === 'true') return;
+    document.getElementById('tej-orb-widget').classList.add('tej-orb-nudging');
+    speak('Want a quick website quote? Tap me and I will estimate it.');
+  }
+
+  function hideNudge() {
+    sessionStorage.setItem('tej_quote_dismissed', 'true');
+    document.getElementById('tej-orb-widget').classList.remove('tej-orb-nudging');
+  }
+
+  function openFlow() {
+    hasUserInteracted = true;
+    canSpeak = true;
+    hideNudge();
+    document.getElementById('tej-orb-widget').classList.add('tej-flow-open');
+    renderStep();
+  }
+
+  function closeFlow() {
+    document.getElementById('tej-orb-widget').classList.remove('tej-flow-open');
+    stopVoice();
+    window.speechSynthesis?.cancel();
+  }
+
+  function renderStep() {
+    const step = QUESTION_FLOW[currentStep];
+    const body = document.getElementById('tej-flow-body');
+    const progress = ((currentStep + 1) / QUESTION_FLOW.length) * 100;
+    const langUi = LANGUAGES[answers.language || 'en'] || LANGUAGES.en;
+
+    setFace(step.face || 'idle');
+    document.getElementById('tej-progress-bar').style.width = `${progress}%`;
+    document.getElementById('tej-back').disabled = currentStep === 0;
+    document.getElementById('tej-mic').textContent = langUi.mic;
+    document.getElementById('tej-back').textContent = langUi.back;
+    document.getElementById('tej-next').textContent = step.multiple ? 'Done' : 'Next';
+
+    let control = '';
+    if (step.options) {
+      control = `<div class="tej-option-grid ${step.multiple ? 'tej-option-grid-multi' : ''}">
+        ${step.options.map(option => {
+          const active = step.multiple
+            ? selectedMulti.has(option.value) || (answers[step.key] || []).includes(option.value)
+            : answers[step.key] === option.value;
+          return `<button class="tej-option ${active ? 'active' : ''}" data-value="${option.value}">${option.label}</button>`;
+        }).join('')}
+      </div>`;
+    } else {
+      control = `<textarea id="tej-free-answer" class="tej-free-answer" rows="3" placeholder="${escapeHtml(step.placeholder || '')}">${escapeHtml(answers[step.key] || '')}</textarea>`;
+    }
+
+    body.innerHTML = `
+      <div class="tej-question-count">Question ${currentStep + 1} of ${QUESTION_FLOW.length}</div>
+      <p class="tej-question">${step.text}</p>
+      ${control}
     `;
 
-    root.innerHTML = widgetTemplate;
-  }
-
-  // --- Initializer ---
-  function init() {
-    injectWidgetHTML();
-    setupSpeechRecognition();
-    loadSessionHistory();
-    setupEventListeners();
-  }
-
-  // --- Load Conversation History ---
-  function loadSessionHistory() {
-    const chatBody = document.getElementById('tej-chat-body');
-    const storedHistory = sessionStorage.getItem('tej_chat_history');
-
-    if (storedHistory) {
-      try {
-        chatHistory = JSON.parse(storedHistory);
-      } catch (e) {
-        console.error('Error parsing stored chat history', e);
-        chatHistory = [];
-      }
-    }
-
-    if (chatHistory.length === 0) {
-      // Add initial greeting from Tej
-      addMessage('bot', WELCOME_MESSAGE, false);
-      saveSessionHistory();
-    } else {
-      // Render previous logs
-      chatHistory.forEach(msg => {
-        renderMessageBubble(msg.role === 'user' ? 'user' : 'bot', msg.content);
-      });
-      scrollToBottom();
-    }
-
-    renderSuggestions();
-  }
-
-  // --- Save Conversation History ---
-  function saveSessionHistory() {
-    sessionStorage.setItem('tej_chat_history', JSON.stringify(chatHistory));
-  }
-
-  // --- Event Bindings ---
-  function setupEventListeners() {
-    const trigger = document.getElementById('tej-trigger');
-    const closeBtn = document.getElementById('tej-close-btn');
-    const ttsToggle = document.getElementById('tej-tts-toggle');
-    const sendBtn = document.getElementById('tej-send-btn');
-    const inputField = document.getElementById('tej-input-field');
-    const micBtn = document.getElementById('tej-mic-btn');
-
-    // Toggle Chat Panel
-    trigger.addEventListener('click', toggleChatPanel);
-    closeBtn.addEventListener('click', () => toggleChatPanel(false));
-
-    // Toggle Text to Speech
-    ttsToggle.addEventListener('click', () => {
-      ttsEnabled = !ttsEnabled;
-      sessionStorage.setItem('tej_tts_enabled', ttsEnabled);
-      ttsToggle.classList.toggle('active', ttsEnabled);
-      ttsToggle.innerHTML = ttsEnabled ? ICONS.volumeOn : ICONS.volumeOff;
-      if (!ttsEnabled && window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
+    body.querySelectorAll('.tej-option').forEach(button => {
+      button.addEventListener('click', () => selectOption(button.dataset.value));
     });
 
-    // Send click
-    sendBtn.addEventListener('click', handleUserSendMessage);
-
-    // Send keypress Enter
-    inputField.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        handleUserSendMessage();
-      }
-    });
-
-    // Mic click
-    if (micBtn) {
-      micBtn.addEventListener('click', toggleVoiceDictation);
-    }
-  }
-
-  // --- UI Layout Controls ---
-  function toggleChatPanel(forceState) {
-    const windowEl = document.getElementById('tej-chat-window');
-    const triggerEl = document.getElementById('tej-trigger');
-    
-    isOpen = typeof forceState === 'boolean' ? forceState : !isOpen;
-    
-    if (isOpen) {
-      windowEl.classList.add('open');
-      triggerEl.style.display = 'none'; // Hide trigger when panel is open
-      document.getElementById('tej-input-field').focus();
-      scrollToBottom();
-    } else {
-      windowEl.classList.remove('open');
-      triggerEl.style.display = 'flex'; // Show trigger when panel is closed
-      if (isRecording) {
-        stopSpeechRecording();
-      }
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel();
-      }
-    }
-  }
-
-  // --- Message UI Operations ---
-  function renderMessageBubble(sender, text) {
-    const chatBody = document.getElementById('tej-chat-body');
-    const bubble = document.createElement('div');
-    bubble.className = `tej-message tej-message-${sender}`;
-
-    // Convert simple markdown links [text](url) to HTML links
-    let formattedText = text;
-    
-    // Replace Markdown bold '**' or '*'
-    formattedText = formattedText.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
-    formattedText = formattedText.replace(/\*(.*?)\*/g, '<em>$1</em>');
-    
-    // Replace Markdown links [Anchor](Url)
-    const markdownLinkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
-    formattedText = formattedText.replace(markdownLinkRegex, '<a href="$2" target="_blank" rel="noopener">$1</a>');
-
-    // Replace linebreaks with <br>
-    formattedText = formattedText.replace(/\n/g, '<br>');
-
-    bubble.innerHTML = formattedText;
-    chatBody.appendChild(bubble);
-  }
-
-  function addMessage(sender, content, save = true) {
-    renderMessageBubble(sender, content);
-    scrollToBottom();
-
-    if (save) {
-      chatHistory.push({
-        role: sender === 'user' ? 'user' : 'assistant',
-        content: content
+    const freeAnswer = document.getElementById('tej-free-answer');
+    if (freeAnswer) {
+      freeAnswer.focus();
+      freeAnswer.addEventListener('input', () => {
+        answers[step.key] = freeAnswer.value.trim();
       });
-      saveSessionHistory();
     }
+
+    speak(step.text);
   }
 
-  function renderSuggestions() {
-    const container = document.getElementById('tej-suggestions');
-    container.innerHTML = '';
-    
-    SUGGESTIONS.forEach(text => {
-      const chip = document.createElement('button');
-      chip.className = 'tej-chip';
-      chip.innerText = text;
-      chip.addEventListener('click', () => {
-        handleSendMessageText(text);
-      });
-      container.appendChild(chip);
-    });
-  }
-
-  function showTypingIndicator() {
-    const chatBody = document.getElementById('tej-chat-body');
-    const indicator = document.createElement('div');
-    indicator.id = 'tej-typing';
-    indicator.className = 'tej-typing-indicator';
-    indicator.innerHTML = `
-      <span class="tej-dot"></span>
-      <span class="tej-dot"></span>
-      <span class="tej-dot"></span>
-    `;
-    chatBody.appendChild(indicator);
-    scrollToBottom();
-  }
-
-  function removeTypingIndicator() {
-    const indicator = document.getElementById('tej-typing');
-    if (indicator) {
-      indicator.remove();
+  function selectOption(value) {
+    const step = QUESTION_FLOW[currentStep];
+    if (step.multiple) {
+      if (selectedMulti.has(value)) selectedMulti.delete(value);
+      else selectedMulti.add(value);
+      answers[step.key] = Array.from(selectedMulti);
+      renderStep();
+      return;
     }
+    answers[step.key] = value;
+    if (step.key === 'language') setRecognitionLanguage();
+    setTimeout(goNext, 120);
   }
 
-  function scrollToBottom() {
-    const chatBody = document.getElementById('tej-chat-body');
-    chatBody.scrollTop = chatBody.scrollHeight;
-  }
+  function goNext() {
+    const step = QUESTION_FLOW[currentStep];
+    const freeAnswer = document.getElementById('tej-free-answer');
+    if (freeAnswer) answers[step.key] = freeAnswer.value.trim();
+    if (step.multiple) answers[step.key] = Array.from(selectedMulti);
 
-  // --- API Handlers ---
-  async function handleSendMessageText(text) {
-    if (!text.trim()) return;
-
-    // Add user message
-    addMessage('user', text);
-
-    // Show loading
-    showTypingIndicator();
-
-    try {
-      const response = await fetch(API_ENDPOINT, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          // Only send non-system messages to API
-          messages: chatHistory.filter(msg => msg.role !== 'system')
-        })
-      });
-
-      removeTypingIndicator();
-
-      if (!response.ok) {
-        throw new Error('API server returned an error');
-      }
-
-      const data = await response.json();
-      const reply = data.reply || "Sorry, I'm experiencing some difficulties connection. Please check back in a moment or contact us at support@troyflex.dev.";
-      
-      // Add agent reply
-      addMessage('bot', reply);
-      
-      // Voice synthesis read-out
-      speakText(reply);
-
-    } catch (e) {
-      console.error('Error communicating with Tej API backend', e);
-      removeTypingIndicator();
-      addMessage('bot', 'Oops! I had trouble connecting to the brain center. Please feel free to email support@troyflex.dev directly for inquiries.');
-    }
-  }
-
-  function handleUserSendMessage() {
-    const field = document.getElementById('tej-input-field');
-    const text = field.value;
-    if (!text.trim()) return;
-    
-    field.value = '';
-    handleSendMessageText(text);
-  }
-
-  // --- Voice Synthesis (Text-to-Speech) ---
-  function speakText(text) {
-    if (!ttsEnabled || !window.speechSynthesis) return;
-
-    // Stop speaking current text
-    window.speechSynthesis.cancel();
-
-    // Strip HTML and markdown characters for cleaner vocalization
-    let cleanText = text.replace(/<[^>]*>/g, ''); // strip HTML tags
-    cleanText = cleanText.replace(/\*\*|__/g, ''); // strip bold
-    cleanText = cleanText.replace(/\[([^\]]+)\]\([^)]+\)/g, '$1'); // strip links and leave text
-    
-    const utterance = new SpeechSynthesisUtterance(cleanText);
-
-    // Retrieve system voices and choose a suitable English speaker
-    const voices = window.speechSynthesis.getVoices();
-    
-    // Attempt to select Google UK English Male/Female or standard US English
-    let selectedVoice = voices.find(v => v.lang === 'en-GB' && v.name.includes('Google')) ||
-                        voices.find(v => v.lang === 'en-US' && v.name.includes('Google')) ||
-                        voices.find(v => v.lang.startsWith('en'));
-                        
-    if (selectedVoice) {
-      utterance.voice = selectedVoice;
-    }
-    
-    utterance.rate = 1.05; // slightly faster conversational speed
-    utterance.pitch = 1.0;
-    
-    window.speechSynthesis.speak(utterance);
-  }
-
-  // Ensure voices are loaded asynchronously in Chrome/Edge
-  if (window.speechSynthesis && window.speechSynthesis.onvoiceschanged !== undefined) {
-    window.speechSynthesis.onvoiceschanged = () => {};
-  }
-
-  // --- Voice Recognition (Speech-to-Text) ---
-  function setupSpeechRecognition() {
-    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-    if (!SpeechRecognition) {
-      // Hide mic button if browser doesn't support speech recognition
-      const micBtn = document.getElementById('tej-mic-btn');
-      if (micBtn) {
-        micBtn.style.display = 'none';
-      }
+    if (!answers[step.key] || (Array.isArray(answers[step.key]) && answers[step.key].length === 0)) {
+      pulseQuestion();
       return;
     }
 
-    recognition = new SpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = false;
-    recognition.lang = 'en-US';
+    if (currentStep < QUESTION_FLOW.length - 1) {
+      currentStep += 1;
+      selectedMulti = new Set(answers[QUESTION_FLOW[currentStep].key] || []);
+      renderStep();
+    } else {
+      generateQuote();
+    }
+  }
 
-    recognition.onstart = () => {
-      isRecording = true;
-      showVoiceRecordingUI();
+  function goBack() {
+    if (currentStep === 0) return;
+    currentStep -= 1;
+    selectedMulti = new Set(answers[QUESTION_FLOW[currentStep].key] || []);
+    renderStep();
+  }
+
+  function pulseQuestion() {
+    const body = document.getElementById('tej-flow-body');
+    body.classList.remove('tej-shake');
+    void body.offsetWidth;
+    body.classList.add('tej-shake');
+  }
+
+  async function generateQuote() {
+    setFace('thinking');
+    const body = document.getElementById('tej-flow-body');
+    body.innerHTML = `
+      <div class="tej-thinking">
+        <span></span><span></span><span></span>
+      </div>
+      <p class="tej-question">Calculating the quote. Tiny spreadsheet brain is awake.</p>
+    `;
+    document.getElementById('tej-next').disabled = true;
+    document.getElementById('tej-mic').disabled = true;
+
+    try {
+      const response = await fetch(QUOTE_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ answers })
+      });
+      const data = response.ok ? await response.json() : buildLocalQuote(answers);
+      renderQuote(data);
+    } catch (error) {
+      renderQuote(buildLocalQuote(answers));
+    }
+  }
+
+  function renderQuote(data) {
+    setFace('happy');
+    const quote = data.quote || data;
+    const body = document.getElementById('tej-flow-body');
+    const message = encodeURIComponent(`Hi Troyflex, Tej estimated my project at ${quote.range}. Business: ${answers.businessType || ''}. Can we discuss?`);
+    body.innerHTML = `
+      <div class="tej-result-card">
+        <span class="tej-result-label">${escapeHtml(quote.packageName)}</span>
+        <h4>${escapeHtml(quote.range)}</h4>
+        <p>${escapeHtml(quote.summary)}</p>
+        <div class="tej-result-meta">
+          <span>${escapeHtml(quote.timeline)}</span>
+          <span>${escapeHtml(quote.confidence)}</span>
+        </div>
+      </div>
+      <div class="tej-result-actions">
+        <a class="tej-primary-btn" href="https://wa.me/${WHATSAPP_NUMBER}?text=${message}" target="_blank" rel="noopener">Send to WhatsApp</a>
+        <button id="tej-restart" class="tej-secondary-btn">Restart</button>
+      </div>
+    `;
+    document.getElementById('tej-next').style.display = 'none';
+    document.getElementById('tej-mic').style.display = 'none';
+    document.getElementById('tej-restart').addEventListener('click', restart);
+    speak(`${quote.packageName}. Estimated range ${quote.range}. ${quote.summary}`);
+  }
+
+  function restart() {
+    currentStep = 0;
+    answers = {};
+    selectedMulti = new Set();
+    document.getElementById('tej-next').disabled = false;
+    document.getElementById('tej-mic').disabled = false;
+    document.getElementById('tej-next').style.display = '';
+    document.getElementById('tej-mic').style.display = '';
+    renderStep();
+  }
+
+  function buildLocalQuote(input) {
+    const pageCount = Number(input.pages || 1);
+    const features = input.features || [];
+    let base = 15000;
+    let packageName = 'Launchpack';
+
+    if (input.projectType === 'app' || features.includes('dashboard')) {
+      base = 120000;
+      packageName = 'Elite';
+    } else if (pageCount >= 6 || features.includes('cms') || features.includes('payments')) {
+      base = 65000;
+      packageName = 'Growth';
+    } else if (pageCount > 1 || input.projectType === 'redesign') {
+      base = 35000;
+      packageName = 'Growth Lite';
+    }
+
+    const addOns = {
+      booking: 10000,
+      payments: 15000,
+      cms: 15000,
+      seo: 10000,
+      dashboard: 40000,
+      multilingual: 12000,
+      maintenance: 8000
     };
+    const addOnTotal = features.reduce((sum, feature) => sum + (addOns[feature] || 0), 0);
+    const urgency = input.timeline === 'urgent' ? 1.18 : 1;
+    const low = Math.round(((base + addOnTotal) * urgency) / 1000) * 1000;
+    const high = Math.round((low * 1.28) / 1000) * 1000;
 
-    recognition.onerror = (e) => {
-      console.error('Speech recognition error', e.error);
-      stopSpeechRecording();
-    };
-
-    recognition.onend = () => {
-      stopSpeechRecording();
-    };
-
-    recognition.onresult = (e) => {
-      const transcript = e.results[0][0].transcript;
-      if (transcript && transcript.trim()) {
-        const inputField = document.getElementById('tej-input-field');
-        inputField.value = transcript;
-        
-        // Auto-send voice message after short delay for better UX
-        setTimeout(() => {
-          handleUserSendMessage();
-        }, 600);
+    return {
+      quote: {
+        packageName,
+        range: `₹${low.toLocaleString('en-IN')} - ₹${high.toLocaleString('en-IN')}`,
+        timeline: input.timeline === 'urgent' ? '7-10 days' : input.timeline === 'relaxed' ? '3-5 weeks' : '2-3 weeks',
+        confidence: 'Initial estimate',
+        summary: `For a ${input.businessType || 'business'} project, this looks like a ${packageName} build with ${features.length ? features.join(', ') : 'core website'} included.`
       }
     };
   }
 
-  function toggleVoiceDictation() {
-    if (!recognition) return;
-
-    if (isRecording) {
-      recognition.stop();
-    } else {
-      // Stop TTS if it was talking before starting to listen
-      if (window.speechSynthesis) {
-        window.speechSynthesis.cancel();
+  function setupSpeechRecognition() {
+    const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!SpeechRecognition) return;
+    recognition = new SpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    setRecognitionLanguage();
+    recognition.onstart = () => {
+      isListening = true;
+      setFace('listening');
+      document.getElementById('tej-mic').classList.add('listening');
+    };
+    recognition.onend = stopVoice;
+    recognition.onerror = stopVoice;
+    recognition.onresult = event => {
+      const transcript = event.results[0][0].transcript;
+      const freeAnswer = document.getElementById('tej-free-answer');
+      if (freeAnswer) {
+        freeAnswer.value = transcript;
+        answers[QUESTION_FLOW[currentStep].key] = transcript.trim();
       }
+    };
+  }
+
+  function setRecognitionLanguage() {
+    if (!recognition) return;
+    const lang = LANGUAGES[answers.language || navigator.language?.slice(0, 2) || 'en'] || LANGUAGES.en;
+    recognition.lang = lang.code;
+  }
+
+  function toggleVoice() {
+    if (!recognition) return;
+    hasUserInteracted = true;
+    if (isListening) recognition.stop();
+    else {
+      window.speechSynthesis?.cancel();
       recognition.start();
     }
   }
 
-  function showVoiceRecordingUI() {
-    const windowEl = document.getElementById('tej-chat-window');
-    const micBtn = document.getElementById('tej-mic-btn');
-    
-    if (micBtn) {
-      micBtn.classList.add('recording');
-    }
-
-    // Create a beautiful listening overlay
-    const overlay = document.createElement('div');
-    overlay.id = 'tej-voice-overlay';
-    overlay.className = 'tej-voice-overlay';
-    overlay.innerHTML = `
-      <div class="tej-voice-waves">
-        <div class="tej-voice-wave"></div>
-        <div class="tej-voice-wave"></div>
-        <div class="tej-voice-wave"></div>
-        <div class="tej-voice-wave"></div>
-        <div class="tej-voice-wave"></div>
-      </div>
-      <div class="tej-voice-text">Listening to you...</div>
-      <button id="tej-voice-cancel-btn" class="tej-chip" style="margin-top: 10px; border-color: var(--color-pink); color: var(--color-pink);">Cancel</button>
-    `;
-
-    windowEl.appendChild(overlay);
-
-    document.getElementById('tej-voice-cancel-btn').addEventListener('click', () => {
-      if (recognition) {
-        recognition.abort();
-      }
-      stopSpeechRecording();
-    });
+  function stopVoice() {
+    isListening = false;
+    document.getElementById('tej-mic')?.classList.remove('listening');
+    setFace('idle');
   }
 
-  function stopSpeechRecording() {
-    isRecording = false;
-    const micBtn = document.getElementById('tej-mic-btn');
-    const overlay = document.getElementById('tej-voice-overlay');
-    
-    if (micBtn) {
-      micBtn.classList.remove('recording');
-    }
-    if (overlay) {
-      overlay.remove();
-    }
+  function speak(text) {
+    if (!canSpeak || !hasUserInteracted || !window.speechSynthesis) return;
+    window.speechSynthesis.cancel();
+    const utterance = new SpeechSynthesisUtterance(text.replace(/[₹*]/g, ''));
+    const lang = LANGUAGES[answers.language || 'en'] || LANGUAGES.en;
+    utterance.lang = lang.code;
+    utterance.rate = 1.02;
+    utterance.pitch = 1.05;
+    window.speechSynthesis.speak(utterance);
   }
 
-  // Run initializations on DOM content ready
+  function setFace(mode) {
+    const face = document.getElementById('tej-face');
+    if (!face) return;
+    face.className = `tej-face tej-face-${mode}`;
+  }
+
+  function escapeHtml(value) {
+    return String(value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
