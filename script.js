@@ -483,6 +483,40 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
       </div>
     `,
+    nidhiyuga: `
+      <span class="modal-subtitle">Dual-View Business Website & SMTP Automation</span>
+      <h3>Nidhiyuga Associates</h3>
+      <div class="modal-content-grid">
+        <div class="modal-left">
+          <p class="modal-text">
+            Nidhiyuga Associates came with a client-approved design direction that needed to support two distinct business experiences inside one polished website: a Banking view and a Wood view.
+          </p>
+          <p class="modal-text">
+            <strong>Key Interventions:</strong> We built the website end to end, implemented the two view flows, connected maps and action buttons, and added Resend SMTP handling for enquiry submissions across both experiences.
+          </p>
+          <p class="modal-text">
+            The mail workflow was intentionally separated with slight content differences, making Banking and Wood enquiries easy to identify as soon as they reached the inbox.
+          </p>
+          <p class="modal-text" style="color: var(--color-teal); font-weight: 600;">
+            Outcome: A complete dual-service web presence with clear navigation, contact routing, location support, and reliable view-specific SMTP delivery.
+          </p>
+        </div>
+        <div class="modal-right">
+          <div class="meta-item">
+            <h5>CLIENT FOCUS</h5>
+            <p>Banking services and Wood business verticals in one website</p>
+          </div>
+          <div class="meta-item">
+            <h5>TECH STACK</h5>
+            <p>Responsive frontend, Google Maps embeds, Resend SMTP, serverless contact handling</p>
+          </div>
+          <div class="meta-item">
+            <h5>SERVICE DELIVERED</h5>
+            <p>End-to-end website creation, dual-view UX, CTA setup, map integration, email automation</p>
+          </div>
+        </div>
+      </div>
+    `,
     dental: `
       <span class="modal-subtitle">SaaS Scheduling Platform & Local SEO</span>
       <h3>Chennai Dental Portal</h3>
